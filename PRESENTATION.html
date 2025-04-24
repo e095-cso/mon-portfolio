@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio de Christelle Vanessa SOUBEIGA, étudiante en BUT Informatique à l'IUT d'Orsay">
+  <title>Présentation – Christelle Vanessa SOUBEIGA</title>
+  
+  <!-- Préchargement des ressources critiques -->
+  <link rel="preload" href="./styles/index.css" as="style">
+  <link rel="preload" href="./styles/images/avatar-christelle.png" as="image">
+  
+  <link rel="stylesheet" href="./styles/index.css" />
+  <link rel="stylesheet" href="./styles/presentation.css" />
+  <link rel="stylesheet" href="./styles/flexbox_101_nav.css" />
+  <link rel="stylesheet" href="./styles/grid_101.css" />
+  <link rel="stylesheet" href="./styles/float_101.css" />
+  <link rel="stylesheet" href="./styles/formation.css" />
+  <link rel="stylesheet" href="./styles/projet.css" />
+  <link rel="stylesheet" href="./styles/ambition.css" />
+  
+  <script>
+    function setLanguage(lang) {
+      document.querySelectorAll(".lang").forEach(el => el.style.display = "none");
+      document.querySelectorAll(".lang." + lang).forEach(el => el.style.display = "block");
+
+      if (lang === 'ar') {
+        document.body.setAttribute('dir', 'rtl');
+        document.querySelectorAll('.lang.ar').forEach(el => el.setAttribute('dir', 'rtl'));
+      } else {
+        document.body.setAttribute('dir', 'ltr');
+      }
+
+      localStorage.setItem('preferredLanguage', lang);
+
+      const pageTitles = {
+        'fr': 'Présentation – Christelle Vanessa SOUBEIGA',
+        'en': 'Introduction – Christelle Vanessa SOUBEIGA',
+        'es': 'Presentación – Christelle Vanessa SOUBEIGA',
+        'zh': '介绍 – Christelle Vanessa SOUBEIGA',
+        'ar': 'تقديم – Christelle Vanessa SOUBEIGA',
+        'hi': 'परिचय – Christelle Vanessa SOUBEIGA'
+      };
+
+      if (pageTitles[lang]) {
+        document.title = pageTitles[lang];
+      }
+
+      document.querySelectorAll('.language-buttons button').forEach(button => {
+        if (button.getAttribute('onclick').includes(`'${lang}'`)) {
+          button.classList.add('active-lang');
+        } else {
+          button.classList.remove('active-lang');
+        }
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedLanguage = localStorage.getItem('preferredLanguage') || 'fr';
+      const urlParams = new URLSearchParams(window.location.search);
+      const langParam = urlParams.get('lang');
+      const currentLang = (langParam && ['fr', 'en', 'es', 'zh', 'ar', 'hi'].includes(langParam)) ? langParam : savedLanguage;
+
+      setLanguage(currentLang);
+
+      // Mise à jour dynamique des liens pour inclure ?lang=...
+      document.querySelectorAll('nav a').forEach(link => {
+        let href = link.getAttribute('href');
+        if (href && href.endsWith('.html')) {
+          const newHref = href.split('?')[0] + `?lang=${currentLang}`;
+          link.setAttribute('href', newHref);
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Passer au contenu principal</a>
+
+  <header>
+    <h1>Christelle Vanessa SOUBEIGA</h1>
+    <h2>Étudiante en BUT Informatique – IUT d'Orsay</h2>
+    <div class="language-buttons" role="group" aria-label="Sélection de langue">
+      <button onclick="setLanguage('fr')" aria-label="Français" title="Passer en français">🇫🇷</button>
+      <button onclick="setLanguage('en')" aria-label="English" title="Switch to English">🇬🇧</button>
+      <button onclick="setLanguage('es')" aria-label="Español" title="Cambiar a español">🇪🇸</button>
+      <button onclick="setLanguage('zh')" aria-label="中文" title="切换到中文">🇨🇳</button>
+      <button onclick="setLanguage('ar')" aria-label="العربية" title="التبديل إلى العربية">🇸🇦</button>
+      <button onclick="setLanguage('hi')" aria-label="हिंदी" title="हिंदी में स्विच करें">🇮🇳</button>
+    </div>
+  </header>
+
+  <nav aria-label="Navigation principale">
+    <a class="active" href="./PRESENTATION.html">PRESENTATION</a>
+    <a href="./FORMATION.html">FORMATION</a>
+    <a href="./EXPERIENCE & PROJET.html">EXPERIENCE & PROJET</a>
+    <a href="./COMPETENCES.html">COMPETENCES</a>
+    <a href="./CENTRE D'INTERET.html">CENTRE D'INTERET</a>
+    <a href="./AMBITION.html">AMBITION</a>
+    <a href="./CONTACT.html">CONTACT</a>
+  </nav>
+
+  <main id="main-content">
+    <section class="avatar-section">
+      <img class="avatar" src="./styles/images/avatar-christelle.png" alt="Photo de Christelle Vanessa Soubeiga" onclick="document.getElementById('voix-christelle').play()" style="cursor:pointer;" />
+      <audio id="voix-christelle" preload="auto">
+        <source src="./styles/audio/audio.mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas la lecture audio.
+      </audio>
+      <p>Clique sur mon avatar pour m'entendre te souhaiter la bienvenue ! 😊</p>
+    </section>
+
+    <section class="lang fr">
+      <h2 class="message">Bonjour ! Je suis SOUBEIGA Christelle Vanessa 👋</h2>
+      <p>Étudiante passionnée par :</p>
+      <div class="presentation-visuals">
+        <img src="./styles/images/code.png" alt="Développement logiciel" title="Développement logiciel">
+        <img src="./styles/images/security.png" alt="Cybersécurité" title="Cybersécurité">
+        <img src="./styles/images/teamwork.png" alt="Travail en équipe" title="Travail en équipe">
+      </div>
+      <p>Curieuse, rigoureuse et motivée, je m'investis dans mes projets avec détermination.</p>
+    </section>
+
+    <section class="lang en">
+      <h2 class="message">Hello! I'm Christelle Vanessa SOUBEIGA 👋</h2>
+      <p>A passionate student in:</p>
+      <div class="presentation-visuals">
+        <img src="./styles/images/code.png" alt="Software Development" title="Software Development">
+        <img src="./styles/images/security.png" alt="Cybersecurity" title="Cybersecurity">
+        <img src="./styles/images/teamwork.png" alt="Teamwork" title="Teamwork">
+      </div>
+      <p>Curious, rigorous and motivated, I am fully committed to my projects.</p>
+    </section>
+
+    <section class="lang es">
+      <h2 class="message">¡Hola! Soy Christelle Vanessa SOUBEIGA 👋</h2>
+      <p>Estudiante apasionada por:</p>
+      <div class="presentation-visuals">
+        <img src="./styles/images/code.png" alt="Desarrollo de software" title="Desarrollo de software">
+        <img src="./styles/images/security.png" alt="Ciberseguridad" title="Ciberseguridad">
+        <img src="./styles/images/teamwork.png" alt="Trabajo en equipo" title="Trabajo en equipo">
+      </div>
+      <p>Curiosa, rigurosa y motivada, me implico plenamente en mis proyectos.</p>
+    </section>
+
+    <section class="lang zh">
+      <h2 class="message">你好！我是 Christelle Vanessa SOUBEIGA 👋</h2>
+      <p>对以下领域充满热情的学生：</p>
+      <div class="presentation-visuals">
+        <img src="./styles/images/code.png" alt="软件开发" title="软件开发">
+        <img src="./styles/images/security.png" alt="网络安全" title="网络安全">
+        <img src="./styles/images/teamwork.png" alt="团队合作" title="团队合作">
+      </div>
+      <p>我好奇、严谨且积极投身于各类项目。</p>
+    </section>
+
+    <section class="lang ar" dir="rtl">
+      <h2 class="message">مرحبًا! أنا كريستيل فانيسا سوبايغا 👋</h2>
+      <p>طالبة شغوفة بـ:</p>
+      <div class="presentation-visuals">
+        <img src="./styles/images/code.png" alt="تطوير البرمجيات" title="تطوير البرمجيات">
+        <img src="./styles/images/security.png" alt="الأمن السيبراني" title="الأمن السيبراني">
+        <img src="./styles/images/teamwork.png" alt="العمل الجماعي" title="العمل الجماعي">
+      </div>
+      <p>فضولية ومنضبطة ومتحمسة، أشارك بفاعلية في مشاريعي.</p>
+    </section>
+
+    <section class="lang hi">
+      <h2 class="message">नमस्ते! मैं क्रिस्टेल वनेसा सूबेगा हूँ 👋</h2>
+      <p>इन क्षेत्रों में रुचि रखने वाली छात्रा:</p>
+      <div class="presentation-visuals">
+        <img src="./styles/images/code.png" alt="सॉफ्टवेयर विकास" title="सॉफ्टवेयर विकास">
+        <img src="./styles/images/security.png" alt="साइबर सुरक्षा" title="साइबर सुरक्षा">
+        <img src="./styles/images/teamwork.png" alt="टीमवर्क" title="टीमवर्क">
+      </div>
+      <p>मैं जिज्ञासु, मेहनती और समर्पित हूं, और अपने सभी प्रोजेक्ट्स में पूरी लगन से काम करती हूं।</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 Christelle Vanessa Soubeiga – Tous droits réservés</p>
+  </footer>
+</body>
+</html>

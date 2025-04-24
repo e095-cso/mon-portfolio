@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Expériences et projets de Christelle Vanessa SOUBEIGA, étudiante en BUT Informatique à l'IUT d'Orsay">
+  <title>Expérience & Projet – Christelle Vanessa SOUBEIGA</title>
+  
+  <!-- Préchargement des ressources critiques -->
+  <link rel="preload" href="./styles/index.css" as="style">
+  
+  <link rel="stylesheet" href="./styles/index.css" />
+  <link rel="stylesheet" href="./styles/presentation.css" />
+  <link rel="stylesheet" href="./styles/flexbox_101_nav.css" />
+  <link rel="stylesheet" href="./styles/grid_101.css" />
+  <link rel="stylesheet" href="./styles/float_101.css" />
+  <link rel="stylesheet" href="./styles/formation.css" />
+  <link rel="stylesheet" href="./styles/projet.css" />
+  <link rel="stylesheet" href="./styles/ambition.css" />
+  
+  <script>
+    function setLanguage(lang) {
+      // Masquer toutes les sections linguistiques
+      document.querySelectorAll(".lang").forEach(el => el.style.display = "none");
+      
+      // Afficher les sections dans la langue sélectionnée
+      document.querySelectorAll(".lang." + lang).forEach(el => el.style.display = "block");
+      
+      // Ajuster la direction du document pour l'arabe
+      if (lang === 'ar') {
+        document.body.setAttribute('dir', 'rtl');
+        document.querySelectorAll('.lang.ar').forEach(el => el.setAttribute('dir', 'rtl'));
+      } else {
+        document.body.setAttribute('dir', 'ltr');
+      }
+      
+      // Enregistrer la préférence de langue
+      localStorage.setItem('preferredLanguage', lang);
+      
+      // Mettre à jour l'apparence des boutons de langue
+      document.querySelectorAll('.language-buttons button').forEach(button => {
+        if (button.getAttribute('onclick').includes(`'${lang}'`)) {
+          button.classList.add('active-lang');
+        } else {
+          button.classList.remove('active-lang');
+        }
+      });
+    }
+    
+    function toggleProjectDetails(projectId) {
+      const projectItem = document.getElementById(projectId);
+      if (projectItem) {
+        projectItem.classList.toggle('active');
+        
+        // Mettre à jour l'attribut aria-expanded
+        const isExpanded = projectItem.classList.contains('active');
+        projectItem.setAttribute('aria-expanded', isExpanded);
+      }
+    }
+    
+    window.addEventListener("DOMContentLoaded", () => {
+      // Récupérer la préférence de langue ou utiliser le français par défaut
+      const savedLanguage = localStorage.getItem('preferredLanguage') || 'fr';
+      
+      // Vérifier si nous avons un paramètre de langue dans l'URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const langParam = urlParams.get('lang');
+      
+      if (langParam && ['fr', 'en', 'es', 'zh', 'ar', 'hi'].includes(langParam)) {
+        setLanguage(langParam);
+      } else {
+        setLanguage(savedLanguage);
+      }
+      
+      // Modifier les liens pour conserver la langue lors de la navigation
+      document.querySelectorAll('nav a').forEach(link => {
+        const currentHref = link.getAttribute('href');
+        if (currentHref && currentHref.includes('.html')) {
+          const langToUse = langParam || savedLanguage;
+          link.setAttribute('href', `${currentHref}?lang=${langToUse}`);
+        }
+      });
+      
+      // Initialiser les projets interactifs
+      document.querySelectorAll('.project-item').forEach(item => {
+        item.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+  
+</head>
+<body>
+  <!-- Lien d'accessibilité pour passer au contenu principal -->
+  <a href="#main-content" class="skip-link">Passer au contenu principal</a>
+
+  <header>
+    <h1>Christelle Vanessa SOUBEIGA</h1>
+    <h2>Étudiante en BUT Informatique – IUT d'Orsay</h2>
+    <div class="language-buttons" role="group" aria-label="Sélection de langue">
+      <button onclick="setLanguage('fr')" aria-label="Français" title="Passer en français">🇫🇷</button>
+      <button onclick="setLanguage('en')" aria-label="English" title="Switch to English">🇬🇧</button>
+      <button onclick="setLanguage('es')" aria-label="Español" title="Cambiar a español">🇪🇸</button>
+      <button onclick="setLanguage('zh')" aria-label="中文" title="切换到中文">🇨🇳</button>
+      <button onclick="setLanguage('ar')" aria-label="العربية" title="التبديل إلى العربية">🇸🇦</button>
+      <button onclick="setLanguage('hi')" aria-label="हिंदी" title="हिंदी में स्विच करें">🇮🇳</button>
+    </div>
+  </header>
+
+  <nav aria-label="Navigation principale">
+    <a href="./PRESENTATION.html">PRESENTATION</a>
+    <a href="./FORMATION.html">FORMATION</a>
+    <a class="active" href="./EXPERIENCE & PROJET.html">EXPERIENCE & PROJET</a>
+    <a href="./COMPETENCES.html">COMPETENCES</a>
+    <a href="./CENTRE D'INTERET.html">CENTRE D'INTERET</a>
+    <a href="./AMBITION.html">AMBITION</a>
+    <a href="./CONTACT.html">CONTACT</a>
+  </nav>
+
+  <main id="main-content">
+    <!-- Section française -->
+    <section class="lang fr">
+      <h2>Projets informatiques réalisés</h2>
+      
+      <ul class="project-list">
+        <li id="project-db" class="project-item" onclick="toggleProjectDetails('project-db')" 
+            tabindex="0" role="button" aria-expanded="false" 
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-db')">
+          <div class="project-title">
+            <h3>Création d'une base de données (SQLite)</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>J'ai développé une base de données complète utilisant SQLite pour la gestion de stock et la facturation d'une petite entreprise.</p>
+            <ul>
+              <li>Conception du schéma de base de données</li>
+              <li>Implémentation des tables et relations</li>
+              <li>Création de requêtes SQL complexes pour l'analyse des données</li>
+              <li>Développement d'une interface simple pour l'interaction avec les données</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">SQLite</span>
+              <span class="tech-tag">SQL</span>
+              <span class="tech-tag">Base de données</span>
+              <span class="tech-tag">Gestion de stock</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-raspberry" class="project-item" onclick="toggleProjectDetails('project-raspberry')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-raspberry')">
+          <div class="project-title">
+            <h3>Installation d'un poste (Raspberry Pi)</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>J'ai configuré un système Raspberry Pi complet pour servir de station de travail légère et de serveur local.</p>
+            <ul>
+              <li>Installation et configuration du système d'exploitation Linux</li>
+              <li>Sécurisation du système et configuration du réseau</li>
+              <li>Mise en place des services nécessaires</li>
+              <li>Automatisation des tâches administratives</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">Raspberry Pi</span>
+              <span class="tech-tag">Linux</span>
+              <span class="tech-tag">Administration système</span>
+              <span class="tech-tag">Réseaux</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-game" class="project-item" onclick="toggleProjectDetails('project-game')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-game')">
+          <div class="project-title">
+            <h3>Développement d'un jeu en C++</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>J'ai créé un jeu 2D utilisant C++ et la bibliothèque SDL2 dans le cadre d'un projet académique.</p>
+            <ul>
+              <li>Conception de l'architecture du jeu</li>
+              <li>Implémentation des mécaniques et de la physique</li>
+              <li>Création de l'interface utilisateur</li>
+              <li>Gestion des événements et des collisions</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">C++</span>
+              <span class="tech-tag">SDL2</span>
+              <span class="tech-tag">POO</span>
+              <span class="tech-tag">Développement de jeux</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-web" class="project-item" onclick="toggleProjectDetails('project-web')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-web')">
+          <div class="project-title">
+            <h3>Création d'un site web</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>J'ai conçu et développé un site web responsive en utilisant HTML, CSS et un peu de JavaScript.</p>
+            <ul>
+              <li>Maquettage et conception de l'interface utilisateur</li>
+              <li>Implémentation de la structure en HTML sémantique</li>
+              <li>Stylisation avec CSS pour différents appareils</li>
+              <li>Ajout d'interactivité avec JavaScript</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">HTML</span>
+              <span class="tech-tag">CSS</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">Responsive Design</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+      
+      <h2>Autres expériences</h2>
+      <div class="experience-container">
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>Aide-soignante</h3>
+            <p class="experience-period">2018–2022</p>
+          </div>
+          <div class="experience-content">
+            <p><strong>Lieu :</strong> Infirmerie de mon établissement</p>
+            <p>J'ai travaillé comme aide-soignante à temps partiel à l'infirmerie de mon établissement, où j'ai développé des compétences en soins de base et en communication avec les patients.</p>
+            <ul>
+              <li>Accueil et prise en charge des élèves malades ou blessés</li>
+              <li>Assistance aux infirmières pour les soins courants</li>
+              <li>Gestion administrative des dossiers médicaux</li>
+              <li>Participation aux campagnes de prévention santé</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>Responsable de groupe</h3>
+            <p class="experience-period">2020–2022</p>
+          </div>
+          <div class="experience-content">
+            <p>J'ai été désignée responsable d'un groupe de 16 élèves pour l'organisation d'événements et la coordination des projets académiques.</p>
+            <ul>
+              <li>Coordination des activités et planification des réunions</li>
+              <li>Médiation lors de conflits entre membres</li>
+              <li>Représentation du groupe auprès de l'administration</li>
+              <li>Gestion des ressources allouées aux projets</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section anglaise -->
+    <section class="lang en">
+      <h2>Completed IT Projects</h2>
+      
+      <ul class="project-list">
+        <li id="project-db-en" class="project-item" onclick="toggleProjectDetails('project-db-en')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-db-en')">
+          <div class="project-title">
+            <h3>Database Creation (SQLite)</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>I developed a complete database using SQLite for inventory management and billing for a small business.</p>
+            <ul>
+              <li>Database schema design</li>
+              <li>Implementation of tables and relationships</li>
+              <li>Creation of complex SQL queries for data analysis</li>
+              <li>Development of a simple interface for data interaction</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">SQLite</span>
+              <span class="tech-tag">SQL</span>
+              <span class="tech-tag">Database</span>
+              <span class="tech-tag">Inventory Management</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-raspberry-en" class="project-item" onclick="toggleProjectDetails('project-raspberry-en')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-raspberry-en')">
+          <div class="project-title">
+            <h3>Development Setup (Raspberry Pi)</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>I configured a complete Raspberry Pi system to serve as a lightweight workstation and local server.</p>
+            <ul>
+              <li>Installation and configuration of Linux operating system</li>
+              <li>System security and network configuration</li>
+              <li>Setup of necessary services</li>
+              <li>Automation of administrative tasks</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">Raspberry Pi</span>
+              <span class="tech-tag">Linux</span>
+              <span class="tech-tag">System Administration</span>
+              <span class="tech-tag">Networks</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-game-en" class="project-item" onclick="toggleProjectDetails('project-game-en')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-game-en')">
+          <div class="project-title">
+            <h3>Game Development in C++</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>I created a 2D game using C++ and the SDL2 library as part of an academic project.</p>
+            <ul>
+              <li>Game architecture design</li>
+              <li>Implementation of game mechanics and physics</li>
+              <li>Creation of user interface</li>
+              <li>Event handling and collision detection</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">C++</span>
+              <span class="tech-tag">SDL2</span>
+              <span class="tech-tag">OOP</span>
+              <span class="tech-tag">Game Development</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-web-en" class="project-item" onclick="toggleProjectDetails('project-web-en')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-web-en')">
+          <div class="project-title">
+            <h3>Website Creation</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>I designed and developed a responsive website using HTML, CSS, and a bit of JavaScript.</p>
+            <ul>
+              <li>Wireframing and user interface design</li>
+              <li>Implementation of semantic HTML structure</li>
+              <li>CSS styling for different devices</li>
+              <li>Adding interactivity with JavaScript</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">HTML</span>
+              <span class="tech-tag">CSS</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">Responsive Design</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+      
+      <h2>Other experiences</h2>
+      <div class="experience-container">
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>Care Assistant</h3>
+            <p class="experience-period">2018–2022</p>
+          </div>
+          <div class="experience-content">
+            <p><strong>Location:</strong> School infirmary</p>
+            <p>I worked as a part-time care assistant at my school's infirmary, where I developed skills in basic care and patient communication.</p>
+            <ul>
+              <li>Reception and care of sick or injured students</li>
+              <li>Assistance to nurses for routine care</li>
+              <li>Administrative management of medical records</li>
+              <li>Participation in health prevention campaigns</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>Group Leader</h3>
+            <p class="experience-period">2020–2022</p>
+          </div>
+          <div class="experience-content">
+            <p>I was appointed as the leader of a group of 16 students for event organization and academic project coordination.</p>
+            <ul>
+              <li>Coordination of activities and meeting planning</li>
+              <li>Mediation during conflicts between members</li>
+              <li>Group representation to administration</li>
+              <li>Management of resources allocated to projects</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section espagnole -->
+    <section class="lang es">
+      <h2>Proyectos informáticos realizados</h2>
+      
+      <ul class="project-list">
+        <li id="project-db-es" class="project-item" onclick="toggleProjectDetails('project-db-es')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-db-es')">
+          <div class="project-title">
+            <h3>Base de datos (SQLite)</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>Desarrollé una base de datos completa utilizando SQLite para la gestión de inventario y facturación para una pequeña empresa.</p>
+            <ul>
+              <li>Diseño del esquema de la base de datos</li>
+              <li>Implementación de tablas y relaciones</li>
+              <li>Creación de consultas SQL complejas para análisis de datos</li>
+              <li>Desarrollo de una interfaz simple para la interacción con los datos</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">SQLite</span>
+              <span class="tech-tag">SQL</span>
+              <span class="tech-tag">Base de datos</span>
+              <span class="tech-tag">Gestión de inventario</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-raspberry-es" class="project-item" onclick="toggleProjectDetails('project-raspberry-es')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-raspberry-es')">
+          <div class="project-title">
+            <h3>Configuración de sistema (Raspberry Pi)</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>Configuré un sistema Raspberry Pi completo para servir como estación de trabajo ligera y servidor local.</p>
+            <ul>
+              <li>Instalación y configuración del sistema operativo Linux</li>
+              <li>Seguridad del sistema y configuración de red</li>
+              <li>Configuración de servicios necesarios</li>
+              <li>Automatización de tareas administrativas</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">Raspberry Pi</span>
+              <span class="tech-tag">Linux</span>
+              <span class="tech-tag">Administración de sistemas</span>
+              <span class="tech-tag">Redes</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-game-es" class="project-item" onclick="toggleProjectDetails('project-game-es')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-game-es')">
+          <div class="project-title">
+            <h3>Juego en C++</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>Creé un juego 2D utilizando C++ y la biblioteca SDL2 como parte de un proyecto académico.</p>
+            <ul>
+              <li>Diseño de arquitectura del juego</li>
+              <li>Implementación de mecánicas y física del juego</li>
+              <li>Creación de interfaz de usuario</li>
+              <li>Gestión de eventos y detección de colisiones</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">C++</span>
+              <span class="tech-tag">SDL2</span>
+              <span class="tech-tag">POO</span>
+              <span class="tech-tag">Desarrollo de juegos</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-web-es" class="project-item" onclick="toggleProjectDetails('project-web-es')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-web-es')">
+          <div class="project-title">
+            <h3>Sitio web</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>Diseñé y desarrollé un sitio web responsive utilizando HTML, CSS y JavaScript.</p>
+            <ul>
+              <li>Diseño de wireframes e interfaz de usuario</li>
+              <li>Implementación de estructura HTML semántica</li>
+              <li>Estilización con CSS para diferentes dispositivos</li>
+              <li>Adición de interactividad con JavaScript</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">HTML</span>
+              <span class="tech-tag">CSS</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">Diseño Responsive</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+      
+      <h2>Otras experiencias</h2>
+      <div class="experience-container">
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>Asistente de enfermería</h3>
+            <p class="experience-period">2018–2022</p>
+          </div>
+          <div class="experience-content">
+            <p><strong>Ubicación:</strong> Enfermería escolar</p>
+            <p>Trabajé como asistente de enfermería a tiempo parcial en la enfermería de mi escuela, donde desarrollé habilidades en cuidados básicos y comunicación con pacientes.</p>
+            <ul>
+              <li>Recepción y atención de estudiantes enfermos o heridos</li>
+              <li>Asistencia a enfermeras para cuidados rutinarios</li>
+              <li>Gestión administrativa de registros médicos</li>
+              <li>Participación en campañas de prevención de salud</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>Líder de grupo</h3>
+            <p class="experience-period">2020–2022</p>
+          </div>
+          <div class="experience-content">
+            <p>Fui designada como líder de un grupo de 16 estudiantes para la organización de eventos y coordinación de proyectos académicos.</p>
+            <ul>
+              <li>Coordinación de actividades y planificación de reuniones</li>
+              <li>Mediación durante conflictos entre miembros</li>
+              <li>Representación del grupo ante la administración</li>
+              <li>Gestión de recursos asignados a proyectos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section chinoise -->
+    <section class="lang zh">
+      <h2>完成的IT项目</h2>
+      
+      <ul class="project-list">
+        <li id="project-db-zh" class="project-item" onclick="toggleProjectDetails('project-db-zh')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-db-zh')">
+          <div class="project-title">
+            <h3>SQLite数据库创建</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>我使用SQLite开发了一个完整的数据库，用于小型企业的库存管理和账单管理。</p>
+            <ul>
+              <li>数据库架构设计</li>
+              <li>实现表格和关系</li>
+              <li>创建复杂的SQL查询进行数据分析</li>
+              <li>开发简单界面与数据交互</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">SQLite</span>
+              <span class="tech-tag">SQL</span>
+              <span class="tech-tag">数据库</span>
+              <span class="tech-tag">库存管理</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-raspberry-zh" class="project-item" onclick="toggleProjectDetails('project-raspberry-zh')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-raspberry-zh')">
+          <div class="project-title">
+            <h3>开发环境 (Raspberry Pi)</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>我配置了一个完整的Raspberry Pi系统，用作轻量级工作站和本地服务器。</p>
+            <ul>
+              <li>安装和配置Linux操作系统</li>
+              <li>系统安全和网络配置</li>
+              <li>设置必要的服务</li>
+              <li>自动化管理任务</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">Raspberry Pi</span>
+              <span class="tech-tag">Linux</span>
+              <span class="tech-tag">系统管理</span>
+              <span class="tech-tag">网络</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-game-zh" class="project-item" onclick="toggleProjectDetails('project-game-zh')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-game-zh')">
+          <div class="project-title">
+            <h3>C++游戏开发</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>我使用C++和SDL2库创建了一个2D游戏作为学术项目的一部分。</p>
+            <ul>
+              <li>游戏架构设计</li>
+              <li>实现游戏机制和物理</li>
+              <li>创建用户界面</li>
+              <li>事件处理和碰撞检测</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">C++</span>
+              <span class="tech-tag">SDL2</span>
+              <span class="tech-tag">面向对象编程</span>
+              <span class="tech-tag">游戏开发</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-web-zh" class="project-item" onclick="toggleProjectDetails('project-web-zh')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-web-zh')">
+          <div class="project-title">
+            <h3>网站创建</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>我设计并开发了一个响应式网站，使用HTML、CSS和JavaScript。</p>
+            <ul>
+              <li>线框图和用户界面设计</li>
+              <li>实现语义HTML结构</li>
+              <li>使用CSS为不同设备设计样式</li>
+              <li>使用JavaScript添加交互性</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">HTML</span>
+              <span class="tech-tag">CSS</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">响应式设计</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+      
+      <h2>其他经历</h2>
+      <div class="experience-container">
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>护理助理</h3>
+            <p class="experience-period">2018–2022</p>
+          </div>
+          <div class="experience-content">
+            <p><strong>地点：</strong> 学校医务室</p>
+            <p>我在学校医务室担任兼职护理助理，在那里我发展了基础护理和与患者沟通的技能。</p>
+            <ul>
+              <li>接待和照顾生病或受伤的学生</li>
+              <li>协助护士进行日常护理</li>
+              <li>管理医疗记录</li>
+              <li>参与健康预防活动</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>小组长</h3>
+            <p class="experience-period">2020–2022</p>
+          </div>
+          <div class="experience-content">
+            <p>我被任命为16名学生小组的负责人，负责组织活动和协调学术项目。</p>
+            <ul>
+              <li>协调活动和会议安排</li>
+              <li>成员之间的冲突调解</li>
+              <li>向管理层代表团队</li>
+              <li>管理分配给项目的资源</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section arabe -->
+    <section class="lang ar" dir="rtl">
+      <h2>مشاريع الحاسوب</h2>
+      
+      <ul class="project-list">
+        <li id="project-db-ar" class="project-item" onclick="toggleProjectDetails('project-db-ar')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-db-ar')">
+          <div class="project-title">
+            <h3>إنشاء قاعدة بيانات (SQLite)</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>قمت بتطوير قاعدة بيانات كاملة باستخدام SQLite لإدارة المخزون والفواتير لشركة صغيرة.</p>
+            <ul>
+              <li>تصميم مخطط قاعدة البيانات</li>
+              <li>تنفيذ الجداول والعلاقات</li>
+              <li>إنشاء استعلامات SQL معقدة لتحليل البيانات</li>
+              <li>تطوير واجهة بسيطة للتفاعل مع البيانات</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">SQLite</span>
+              <span class="tech-tag">SQL</span>
+              <span class="tech-tag">قواعد البيانات</span>
+              <span class="tech-tag">إدارة المخزون</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-raspberry-ar" class="project-item" onclick="toggleProjectDetails('project-raspberry-ar')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-raspberry-ar')">
+          <div class="project-title">
+            <h3>تركيب نظام (Raspberry Pi)</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>قمت بتكوين نظام Raspberry Pi كامل ليعمل كمحطة عمل خفيفة وخادم محلي.</p>
+            <ul>
+              <li>تثبيت وتكوين نظام التشغيل Linux</li>
+              <li>أمان النظام وتكوين الشبكة</li>
+              <li>إعداد الخدمات اللازمة</li>
+              <li>أتمتة المهام الإدارية</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">Raspberry Pi</span>
+              <span class="tech-tag">Linux</span>
+              <span class="tech-tag">إدارة النظام</span>
+              <span class="tech-tag">الشبكات</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-game-ar" class="project-item" onclick="toggleProjectDetails('project-game-ar')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-game-ar')">
+          <div class="project-title">
+            <h3>تطوير لعبة C++</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>قمت بإنشاء لعبة ثنائية الأبعاد باستخدام C++ ومكتبة SDL2 كجزء من مشروع أكاديمي.</p>
+            <ul>
+              <li>تصميم هيكل اللعبة</li>
+              <li>تنفيذ آليات اللعبة والفيزياء</li>
+              <li>إنشاء واجهة المستخدم</li>
+              <li>معالجة الأحداث واكتشاف التصادم</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">C++</span>
+              <span class="tech-tag">SDL2</span>
+              <span class="tech-tag">البرمجة الكائنية</span>
+              <span class="tech-tag">تطوير الألعاب</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-web-ar" class="project-item" onclick="toggleProjectDetails('project-web-ar')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-web-ar')">
+          <div class="project-title">
+            <h3>إنشاء موقع ويب</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>قمت بتصميم وتطوير موقع ويب متجاوب باستخدام HTML وCSS وبعض JavaScript.</p>
+            <ul>
+              <li>إنشاء مخططات وتصميم واجهة المستخدم</li>
+              <li>تنفيذ بنية HTML دلالية</li>
+              <li>تصميم CSS لأجهزة مختلفة</li>
+              <li>إضافة التفاعلية باستخدام JavaScript</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">HTML</span>
+              <span class="tech-tag">CSS</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">التصميم المتجاوب</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+      
+      <h2>تجارب أخرى</h2>
+      <div class="experience-container">
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>مساعد ممرض</h3>
+            <p class="experience-period">2018–2022</p>
+          </div>
+          <div class="experience-content">
+            <p><strong>المكان:</strong> مصحة المدرسة</p>
+            <p>عملت كمساعد ممرض بدوام جزئي في مصحة مدرستي، حيث طورت مهارات في الرعاية الأساسية والتواصل مع المرضى.</p>
+            <ul>
+              <li>استقبال ورعاية الطلاب المرضى أو المصابين</li>
+              <li>مساعدة الممرضات في الرعاية الروتينية</li>
+              <li>إدارة السجلات الطبية</li>
+              <li>المشاركة في حملات الوقاية الصحية</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>رئيس فريق</h3>
+            <p class="experience-period">2020–2022</p>
+          </div>
+          <div class="experience-content">
+            <p>تم تعييني كقائد لمجموعة من 16 طالبًا لتنظيم الفعاليات وتنسيق المشاريع الأكاديمية.</p>
+            <ul>
+              <li>تنسيق الأنشطة وتخطيط الاجتماعات</li>
+              <li>الوساطة خلال النزاعات بين الأعضاء</li>
+              <li>تمثيل المجموعة أمام الإدارة</li>
+              <li>إدارة الموارد المخصصة للمشاريع</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section hindi -->
+    <section class="lang hi">
+      <h2>पूर्ण कंप्यूटर प्रोजेक्ट</h2>
+      
+      <ul class="project-list">
+        <li id="project-db-hi" class="project-item" onclick="toggleProjectDetails('project-db-hi')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-db-hi')">
+          <div class="project-title">
+            <h3>SQLite डेटाबेस</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>मैंने एक छोटे व्यवसाय के लिए इन्वेंटरी प्रबंधन और बिलिंग के लिए SQLite का उपयोग करके एक पूर्ण डेटाबेस विकसित किया।</p>
+            <ul>
+              <li>डेटाबेस स्कीमा डिजाइन</li>
+              <li>टेबल और रिलेशनशिप का कार्यान्वयन</li>
+              <li>डेटा विश्लेषण के लिए जटिल SQL क्वेरी बनाना</li>
+              <li>डेटा इंटरैक्शन के लिए एक साधारण इंटरफेस का विकास</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">SQLite</span>
+              <span class="tech-tag">SQL</span>
+              <span class="tech-tag">डेटाबेस</span>
+              <span class="tech-tag">इन्वेंटरी प्रबंधन</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-raspberry-hi" class="project-item" onclick="toggleProjectDetails('project-raspberry-hi')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-raspberry-hi')">
+          <div class="project-title">
+            <h3>डेव सेटअप (Raspberry Pi)</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>मैंने एक हल्के वर्कस्टेशन और लोकल सर्वर के रूप में काम करने के लिए एक पूर्ण Raspberry Pi सिस्टम कॉन्फ़िगर किया।</p>
+            <ul>
+              <li>Linux ऑपरेटिंग सिस्टम की स्थापना और कॉन्फ़िगरेशन</li>
+              <li>सिस्टम सुरक्षा और नेटवर्क कॉन्फ़िगरेशन</li>
+              <li>आवश्यक सेवाओं की स्थापना</li>
+              <li>प्रशासनिक कार्यों का स्वचालन</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">Raspberry Pi</span>
+              <span class="tech-tag">Linux</span>
+              <span class="tech-tag">सिस्टम प्रशासन</span>
+              <span class="tech-tag">नेटवर्क</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-game-hi" class="project-item" onclick="toggleProjectDetails('project-game-hi')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-game-hi')">
+          <div class="project-title">
+            <h3>C++ गेम का विकास</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>मैंने एक शैक्षिक परियोजना के हिस्से के रूप में C++ और SDL2 लाइब्रेरी का उपयोग करके एक 2D गेम बनाया।</p>
+            <ul>
+              <li>गेम आर्किटेक्चर डिज़ाइन</li>
+              <li>गेम मैकेनिक्स और फिजिक्स का कार्यान्वयन</li>
+              <li>यूजर इंटरफेस का निर्माण</li>
+              <li>इवेंट हैंडलिंग और कोलिशन डिटेक्शन</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">C++</span>
+              <span class="tech-tag">SDL2</span>
+              <span class="tech-tag">OOP</span>
+              <span class="tech-tag">गेम डेवलपमेंट</span>
+            </div>
+          </div>
+        </li>
+        
+        <li id="project-web-hi" class="project-item" onclick="toggleProjectDetails('project-web-hi')"
+            tabindex="0" role="button" aria-expanded="false"
+            onkeypress="if(event.key==='Enter') toggleProjectDetails('project-web-hi')">
+          <div class="project-title">
+            <h3>वेबसाइट बनाना</h3>
+            <div class="project-icon">+</div>
+          </div>
+          <div class="project-details">
+            <p>मैंने HTML, CSS और थोड़ा JavaScript का उपयोग करके एक रिस्पॉन्सिव वेबसाइट डिज़ाइन और विकसित की।</p>
+            <ul>
+              <li>वायरफ्रेमिंग और यूजर इंटरफेस डिज़ाइन</li>
+              <li>सिमेंटिक HTML स्ट्रक्चर का कार्यान्वयन</li>
+              <li>विभिन्न डिवाइस के लिए CSS स्टाइलिंग</li>
+              <li>JavaScript के साथ इंटरैक्टिविटी जोड़ना</li>
+            </ul>
+            <div class="project-tech-list">
+              <span class="tech-tag">HTML</span>
+              <span class="tech-tag">CSS</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">रिस्पॉन्सिव डिज़ाइन</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+      
+      <h2>अन्य अनुभव</h2>
+      <div class="experience-container">
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>केयर असिस्टेंट</h3>
+            <p class="experience-period">2018–2022</p>
+          </div>
+          <div class="experience-content">
+            <p><strong>स्थान:</strong> स्कूल इंफर्मरी</p>
+            <p>मैंने अपने स्कूल के इंफर्मरी में पार्ट-टाइम केयर असिस्टेंट के रूप में काम किया, जहां मैंने बुनियादी देखभाल और रोगियों के साथ संवाद के कौशल विकसित किए।</p>
+            <ul>
+              <li>बीमार या घायल छात्रों का स्वागत और देखभाल</li>
+              <li>नियमित देखभाल के लिए नर्सों की सहायता</li>
+              <li>चिकित्सा रिकॉर्ड्स का प्रशासनिक प्रबंधन</li>
+              <li>स्वास्थ्य रोकथाम अभियानों में भागीदारी</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>समूह नेता</h3>
+            <p class="experience-period">2020–2022</p>
+          </div>
+          <div class="experience-content">
+            <p>मुझे कार्यक्रम आयोजन और शैक्षणिक परियोजना समन्वय के लिए 16 छात्रों के समूह के नेता के रूप में नियुक्त किया गया था।</p>
+            <ul>
+              <li>गतिविधियों का समन्वय और बैठकों की योजना</li>
+              <li>सदस्यों के बीच संघर्ष के दौरान मध्यस्थता</li>
+              <li>प्रशासन के प्रति समूह का प्रतिनिधित्व</li>
+              <li>परियोजनाओं के लिए आवंटित संसाधनों का प्रबंधन</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 Christelle Vanessa Soubeiga – Tous droits réservés</p>
+  </footer>
+</body>
+</html>

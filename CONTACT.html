@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Coordonnées et formulaire de contact de Christelle Vanessa SOUBEIGA, étudiante en BUT Informatique à l'IUT d'Orsay">
+  <title>Contact – Christelle Vanessa SOUBEIGA</title>
+  
+  <!-- Préchargement des ressources critiques -->
+  <link rel="preload" href="./styles/index.css" as="style">
+  
+  <link rel="stylesheet" href="./styles/index.css" />
+  <link rel="stylesheet" href="./styles/presentation.css" />
+  <link rel="stylesheet" href="./styles/flexbox_101_nav.css" />
+  <link rel="stylesheet" href="./styles/grid_101.css" />
+  <link rel="stylesheet" href="./styles/float_101.css" />
+  <link rel="stylesheet" href="./styles/formation.css" />
+  <link rel="stylesheet" href="./styles/projet.css" />
+  <link rel="stylesheet" href="./styles/ambition.css" />
+  
+  <script>
+    function setLanguage(lang) {
+      // Masquer toutes les sections linguistiques
+      document.querySelectorAll(".lang").forEach(el => el.style.display = "none");
+      
+      // Afficher les sections dans la langue sélectionnée
+      document.querySelectorAll(".lang." + lang).forEach(el => el.style.display = "block");
+      
+      // Ajuster la direction du document pour l'arabe
+      if (lang === 'ar') {
+        document.body.setAttribute('dir', 'rtl');
+        document.querySelectorAll('.lang.ar').forEach(el => el.setAttribute('dir', 'rtl'));
+      } else {
+        document.body.setAttribute('dir', 'ltr');
+      }
+      
+      // Enregistrer la préférence de langue
+      localStorage.setItem('preferredLanguage', lang);
+      
+      // Mettre à jour les attributs lang des formulaires
+      document.querySelectorAll('form').forEach(form => {
+        form.setAttribute('lang', lang);
+      });
+      
+      // Mettre à jour l'apparence des boutons de langue
+      document.querySelectorAll('.language-buttons button').forEach(button => {
+        if (button.getAttribute('onclick').includes(`'${lang}'`)) {
+          button.classList.add('active-lang');
+        } else {
+          button.classList.remove('active-lang');
+        }
+      });
+    }
+    
+    window.addEventListener("DOMContentLoaded", () => {
+      // Récupérer la préférence de langue ou utiliser le français par défaut
+      const savedLanguage = localStorage.getItem('preferredLanguage') || 'fr';
+      
+      // Vérifier si nous avons un paramètre de langue dans l'URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const langParam = urlParams.get('lang');
+      
+      if (langParam && ['fr', 'en', 'es', 'zh', 'ar', 'hi'].includes(langParam)) {
+        setLanguage(langParam);
+      } else {
+        setLanguage(savedLanguage);
+      }
+      
+      // Modifier les liens pour conserver la langue lors de la navigation
+      document.querySelectorAll('nav a').forEach(link => {
+        const currentHref = link.getAttribute('href');
+        if (currentHref && currentHref.includes('.html')) {
+          const langToUse = langParam || savedLanguage;
+          link.setAttribute('href', `${currentHref}?lang=${langToUse}`);
+        }
+      });
+      
+      // Améliorer les formulaires
+      document.querySelectorAll('form').forEach(form => {
+        // Ajouter une validation HTML5
+        form.addEventListener('submit', function(event) {
+          // Vérifier si le formulaire est valide avant soumission
+          if (!this.checkValidity()) {
+            event.preventDefault();
+            // Mettre en évidence les champs invalides
+            this.reportValidity();
+          }
+        });
+      });
+    });
+  </script>
+  
+  <style>
+    .language-buttons button.active-lang {
+      background-color: #2c3e50;
+      color: #f1c40f;
+      transform: scale(1.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #2c3e50;
+      color: white;
+      padding: 8px;
+      z-index: 100;
+      transition: top 0.3s;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+    
+    /* Focus visible pour tous les éléments interactifs */
+    a:focus, button:focus, input:focus, textarea:focus, [tabindex]:focus {
+      outline: 3px solid #3498db;
+      outline-offset: 2px;
+    }
+    
+    /* Styles améliorés pour les formulaires */
+    .form-group {
+      margin-bottom: 1.5em;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5em;
+      font-weight: bold;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.8em;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1em;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    .form-control:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25);
+    }
+    
+    .form-control:invalid {
+      border-color: #e74c3c;
+    }
+    
+    .btn-primary {
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      padding: 0.8em 1.5em;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    
+    .btn-primary:hover {
+      background-color: #1a252f;
+      transform: translateY(-2px);
+    }
+    
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+    
+    /* Carte de contact améliorée */
+    .contact-card {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 1.5em;
+      margin-bottom: 2em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .contact-info {
+      margin-bottom: 1.5em;
+    }
+    
+    .contact-info ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .contact-info li {
+      margin-bottom: 0.8em;
+      display: flex;
+      align-items: center;
+    }
+    
+    .contact-icon {
+      margin-right: 10px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f1c40f;
+      color: #2c3e50;
+      border-radius: 50%;
+      font-size: 14px;
+    }
+    
+    /* Adaptation pour RTL */
+    [dir="rtl"] .contact-icon {
+      margin-right: 0;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Lien d'accessibilité pour passer au contenu principal -->
+  <a href="#main-content" class="skip-link">Passer au contenu principal</a>
+
+  <header>
+    <h1>Christelle Vanessa SOUBEIGA</h1>
+    <h2>Étudiante en BUT Informatique – IUT d'Orsay</h2>
+    <div class="language-buttons" role="group" aria-label="Sélection de langue">
+      <button onclick="setLanguage('fr')" aria-label="Français" title="Passer en français">🇫🇷</button>
+      <button onclick="setLanguage('en')" aria-label="English" title="Switch to English">🇬🇧</button>
+      <button onclick="setLanguage('es')" aria-label="Español" title="Cambiar a español">🇪🇸</button>
+      <button onclick="setLanguage('zh')" aria-label="中文" title="切换到中文">🇨🇳</button>
+      <button onclick="setLanguage('ar')" aria-label="العربية" title="التبديل إلى العربية">🇸🇦</button>
+      <button onclick="setLanguage('hi')" aria-label="हिंदी" title="हिंदी में स्विच करें">🇮🇳</button>
+    </div>
+  </header>
+
+  <nav aria-label="Navigation principale">
+    <a href="./PRESENTATION.html">PRESENTATION</a>
+    <a href="./FORMATION.html">FORMATION</a>
+    <a href="./EXPERIENCE & PROJET.html">EXPERIENCE & PROJET</a>
+    <a href="./COMPETENCES.html">COMPETENCES</a>
+    <a href="./CENTRE D'INTERET.html">CENTRE D'INTERET</a>
+    <a href="./AMBITION.html">AMBITION</a>
+    <a class="active" href="./CONTACT.html">CONTACT</a>
+  </nav>
+
+  <main id="main-content">
+    <section class="lang fr">
+      <h2>Contact</h2>
+      
+      <div class="contact-card">
+        <div class="contact-info">
+          <p>Vous pouvez me contacter directement via ce formulaire ou en utilisant mes coordonnées ci-dessous :</p>
+          <ul>
+            <li><span class="contact-icon">✉</span><strong>Email :</strong> soubeigachristellevanessa@gmail.com</li>
+            <li><span class="contact-icon">📱</span><strong>Téléphone :</strong> 07 58 00 42 96</li>
+            <li><span class="contact-icon">🔗</span><strong>LinkedIn :</strong> <a href="https://www.linkedin.com/in/christelle-vanessa-soubeiga-781149329/" target="_blank" rel="noopener">linkedin.com/in/christellevanessa</a></li>
+          </ul>
+        </div>
+
+        <form action="https://formspree.io/f/mjkydyvg" method="POST" lang="fr" aria-label="Formulaire de contact">
+          <div class="form-group">
+            <label for="nom-fr" id="nom-label-fr">Nom :</label>
+            <input type="text" id="nom-fr" name="nom" class="form-control" aria-labelledby="nom-label-fr" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email-fr" id="email-label-fr">Email :</label>
+            <input type="email" id="email-fr" name="email" class="form-control" aria-labelledby="email-label-fr" required />
+          </div>
+
+          <div class="form-group">
+            <label for="message-fr" id="message-label-fr">Message :</label>
+            <textarea id="message-fr" name="message" rows="5" class="form-control" aria-labelledby="message-label-fr" required></textarea>
+          </div>
+
+          <input type="hidden" name="_subject" value="Nouveau message depuis le site web !" />
+          <button type="submit" class="btn-primary" aria-label="Envoyer le formulaire">Envoyer</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="lang en">
+      <h2>Contact</h2>
+      
+      <div class="contact-card">
+        <div class="contact-info">
+          <p>You can contact me directly using this form or via the contact information below:</p>
+          <ul>
+            <li><span class="contact-icon">✉</span><strong>Email:</strong> soubeigachristellevanessa@gmail.com</li>
+            <li><span class="contact-icon">📱</span><strong>Phone:</strong> +33 7 58 00 42 96</li>
+            <li><span class="contact-icon">🔗</span><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/christelle-vanessa-soubeiga-781149329/" target="_blank" rel="noopener">linkedin.com/in/christellevanessa</a></li>
+          </ul>
+        </div>
+        
+        <form action="https://formspree.io/f/mjkydyvg" method="POST" lang="en" aria-label="Contact form">
+          <div class="form-group">
+            <label for="nom-en" id="nom-label-en">Name:</label>
+            <input type="text" id="nom-en" name="nom" class="form-control" aria-labelledby="nom-label-en" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email-en" id="email-label-en">Email:</label>
+            <input type="email" id="email-en" name="email" class="form-control" aria-labelledby="email-label-en" required />
+          </div>
+
+          <div class="form-group">
+            <label for="message-en" id="message-label-en">Message:</label>
+            <textarea id="message-en" name="message" rows="5" class="form-control" aria-labelledby="message-label-en" required></textarea>
+          </div>
+
+          <input type="hidden" name="_subject" value="New message from the website!" />
+          <button type="submit" class="btn-primary" aria-label="Send form">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="lang es">
+      <h2>Contacto</h2>
+      
+      <div class="contact-card">
+        <div class="contact-info">
+          <p>Puedes contactarme directamente usando este formulario o a través de mis datos de contacto:</p>
+          <ul>
+            <li><span class="contact-icon">✉</span><strong>Email:</strong> soubeigachristellevanessa@gmail.com</li>
+            <li><span class="contact-icon">📱</span><strong>Teléfono:</strong> +33 7 58 00 42 96</li>
+            <li><span class="contact-icon">🔗</span><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/christelle-vanessa-soubeiga-781149329/" target="_blank" rel="noopener">linkedin.com/in/christellevanessa</a></li>
+          </ul>
+        </div>
+
+        <form action="https://formspree.io/f/mjkydyvg" method="POST" lang="es" aria-label="Formulario de contacto">
+          <div class="form-group">
+            <label for="nom-es" id="nom-label-es">Nombre:</label>
+            <input type="text" id="nom-es" name="nom" class="form-control" aria-labelledby="nom-label-es" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email-es" id="email-label-es">Correo electrónico:</label>
+            <input type="email" id="email-es" name="email" class="form-control" aria-labelledby="email-label-es" required />
+          </div>
+
+          <div class="form-group">
+            <label for="message-es" id="message-label-es">Mensaje:</label>
+            <textarea id="message-es" name="message" rows="5" class="form-control" aria-labelledby="message-label-es" required></textarea>
+          </div>
+
+          <input type="hidden" name="_subject" value="¡Nuevo mensaje desde el sitio web!" />
+          <button type="submit" class="btn-primary" aria-label="Enviar formulario">Enviar</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="lang zh">
+      <h2>联系方式</h2>
+      
+      <div class="contact-card">
+        <div class="contact-info">
+          <p>您可以通过此表单或以下联系方式直接联系我：</p>
+          <ul>
+            <li><span class="contact-icon">✉</span><strong>邮箱：</strong> soubeigachristellevanessa@gmail.com</li>
+            <li><span class="contact-icon">📱</span><strong>电话：</strong> +33 7 58 00 42 96</li>
+            <li><span class="contact-icon">🔗</span><strong>LinkedIn：</strong> <a href="https://www.linkedin.com/in/christelle-vanessa-soubeiga-781149329/" target="_blank" rel="noopener">linkedin.com/in/christellevanessa</a></li>
+          </ul>
+        </div>
+
+        <form action="https://formspree.io/f/mjkydyvg" method="POST" lang="zh" aria-label="联系表单">
+          <div class="form-group">
+            <label for="nom-zh" id="nom-label-zh">姓名：</label>
+            <input type="text" id="nom-zh" name="nom" class="form-control" aria-labelledby="nom-label-zh" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email-zh" id="email-label-zh">电子邮箱：</label>
+            <input type="email" id="email-zh" name="email" class="form-control" aria-labelledby="email-label-zh" required />
+          </div>
+
+          <div class="form-group">
+            <label for="message-zh" id="message-label-zh">留言：</label>
+            <textarea id="message-zh" name="message" rows="5" class="form-control" aria-labelledby="message-label-zh" required></textarea>
+          </div>
+
+          <input type="hidden" name="_subject" value="网站新消息！" />
+          <button type="submit" class="btn-primary" aria-label="发送表单">发送</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="lang ar" dir="rtl">
+      <h2>تواصل معنا</h2>
+      
+      <div class="contact-card">
+        <div class="contact-info">
+          <p>يمكنك التواصل معي مباشرة باستخدام هذا النموذج أو عبر معلومات الاتصال الخاصة بي:</p>
+          <ul>
+            <li><span class="contact-icon">✉</span><strong>البريد الإلكتروني:</strong> soubeigachristellevanessa@gmail.com</li>
+            <li><span class="contact-icon">📱</span><strong>الهاتف:</strong> +33 7 58 00 42 96</li>
+            <li><span class="contact-icon">🔗</span><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/christelle-vanessa-soubeiga-781149329/" target="_blank" rel="noopener">linkedin.com/in/christellevanessa</a></li>
+          </ul>
+        </div>
+
+        <form action="https://formspree.io/f/mjkydyvg" method="POST" lang="ar" aria-label="نموذج الاتصال" dir="rtl">
+          <div class="form-group">
+            <label for="nom-ar" id="nom-label-ar">الاسم:</label>
+            <input type="text" id="nom-ar" name="nom" class="form-control" aria-labelledby="nom-label-ar" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email-ar" id="email-label-ar">البريد الإلكتروني:</label>
+            <input type="email" id="email-ar" name="email" class="form-control" aria-labelledby="email-label-ar" required />
+          </div>
+
+          <div class="form-group">
+            <label for="message-ar" id="message-label-ar">الرسالة:</label>
+            <textarea id="message-ar" name="message" rows="5" class="form-control" aria-labelledby="message-label-ar" required></textarea>
+          </div>
+
+          <input type="hidden" name="_subject" value="رسالة جديدة من الموقع!" />
+          <button type="submit" class="btn-primary" aria-label="إرسال النموذج">إرسال</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="lang hi">
+      <h2>संपर्क</h2>
+      
+      <div class="contact-card">
+        <div class="contact-info">
+          <p>आप इस फॉर्म का उपयोग करके या मेरे संपर्क विवरण के माध्यम से मुझसे सीधे संपर्क कर सकते हैं:</p>
+          <ul>
+            <li><span class="contact-icon">✉</span><strong>ईमेल:</strong> soubeigachristellevanessa@gmail.com</li>
+            <li><span class="contact-icon">📱</span><strong>फोन:</strong> +33 7 58 00 42 96</li>
+            <li><span class="contact-icon">🔗</span><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/christelle-vanessa-soubeiga-781149329/" target="_blank" rel="noopener">linkedin.com/in/christellevanessa</a></li>
+          </ul>
+        </div>
+
+        <form action="https://formspree.io/f/mjkydyvg" method="POST" lang="hi" aria-label="संपर्क फॉर्म">
+          <div class="form-group">
+            <label for="nom-hi" id="nom-label-hi">नाम:</label>
+            <input type="text" id="nom-hi" name="nom" class="form-control" aria-labelledby="nom-label-hi" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email-hi" id="email-label-hi">ईमेल:</label>
+            <input type="email" id="email-hi" name="email" class="form-control" aria-labelledby="email-label-hi" required />
+          </div>
+
+          <div class="form-group">
+            <label for="message-hi" id="message-label-hi">संदेश:</label>
+            <textarea id="message-hi" name="message" rows="5" class="form-control" aria-labelledby="message-label-hi" required></textarea>
+          </div>
+
+          <input type="hidden" name="_subject" value="वेबसाइट से नया संदेश!" />
+          <button type="submit" class="btn-primary" aria-label="फॉर्म भेजें">भेजें</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 Christelle Vanessa Soubeiga – Tous droits réservés</p>
+    <address>
+      IUT d'Orsay – 13 avenue des Sciences – 91190 Gif-sur-Yvette, France<br />
+      <a href="https://www.iut-orsay.universite-paris-saclay.fr/" target="_blank" rel="noopener">Site de l'IUT d'Orsay</a>
+    </address>
+  </footer>
+</body>
+</html>

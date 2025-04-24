@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Compétences techniques et personnelles de Christelle Vanessa SOUBEIGA, étudiante en BUT Informatique à l'IUT d'Orsay">
+  <title>Compétences – Christelle Vanessa SOUBEIGA</title>
+  
+  <!-- Préchargement des ressources critiques -->
+  <link rel="preload" href="./styles/index.css" as="style">
+  
+  <link rel="stylesheet" href="./styles/index.css" />
+  <link rel="stylesheet" href="./styles/presentation.css" />
+  <link rel="stylesheet" href="./styles/flexbox_101_nav.css" />
+  <link rel="stylesheet" href="./styles/grid_101.css" />
+  <link rel="stylesheet" href="./styles/float_101.css" />
+  <link rel="stylesheet" href="./styles/formation.css" />
+  <link rel="stylesheet" href="./styles/projet.css" />
+  <link rel="stylesheet" href="./styles/ambition.css" />
+  
+  <script>
+    function setLanguage(lang) {
+      // Masquer toutes les sections linguistiques
+      document.querySelectorAll(".lang").forEach(el => el.style.display = "none");
+      
+      // Afficher les sections dans la langue sélectionnée
+      document.querySelectorAll(".lang." + lang).forEach(el => el.style.display = "block");
+      
+      // Ajuster la direction du document pour l'arabe
+      if (lang === 'ar') {
+        document.body.setAttribute('dir', 'rtl');
+        document.querySelectorAll('.lang.ar').forEach(el => el.setAttribute('dir', 'rtl'));
+      } else {
+        document.body.setAttribute('dir', 'ltr');
+      }
+      
+      // Enregistrer la préférence de langue
+      localStorage.setItem('preferredLanguage', lang);
+      
+      // Mettre à jour l'apparence des boutons de langue
+      document.querySelectorAll('.language-buttons button').forEach(button => {
+        if (button.getAttribute('onclick').includes(`'${lang}'`)) {
+          button.classList.add('active-lang');
+        } else {
+          button.classList.remove('active-lang');
+        }
+      });
+    }
+    
+    window.addEventListener("DOMContentLoaded", () => {
+      // Récupérer la préférence de langue ou utiliser le français par défaut
+      const savedLanguage = localStorage.getItem('preferredLanguage') || 'fr';
+      
+      // Vérifier si nous avons un paramètre de langue dans l'URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const langParam = urlParams.get('lang');
+      
+      if (langParam && ['fr', 'en', 'es', 'zh', 'ar', 'hi'].includes(langParam)) {
+        setLanguage(langParam);
+      } else {
+        setLanguage(savedLanguage);
+      }
+      
+      // Modifier les liens pour conserver la langue lors de la navigation
+      document.querySelectorAll('nav a').forEach(link => {
+        const currentHref = link.getAttribute('href');
+        if (currentHref && currentHref.includes('.html')) {
+          const langToUse = langParam || savedLanguage;
+          link.setAttribute('href', `${currentHref}?lang=${langToUse}`);
+        }
+      });
+
+      // Animer les barres de compétences
+      document.querySelectorAll('.skill-level').forEach(bar => {
+        setTimeout(() => {
+          bar.style.width = bar.getAttribute('data-level') || bar.style.width;
+        }, 300);
+      });
+    });
+  </script>
+  
+
+</head>
+<body>
+  <!-- Lien d'accessibilité pour passer au contenu principal -->
+  <a href="#main-content" class="skip-link">Passer au contenu principal</a>
+
+  <header>
+    <h1>Christelle Vanessa SOUBEIGA</h1>
+    <h2>Étudiante en BUT Informatique – IUT d'Orsay</h2>
+    <div class="language-buttons" role="group" aria-label="Sélection de langue">
+      <button onclick="setLanguage('fr')" aria-label="Français" title="Passer en français">🇫🇷</button>
+      <button onclick="setLanguage('en')" aria-label="English" title="Switch to English">🇬🇧</button>
+      <button onclick="setLanguage('es')" aria-label="Español" title="Cambiar a español">🇪🇸</button>
+      <button onclick="setLanguage('zh')" aria-label="中文" title="切换到中文">🇨🇳</button>
+      <button onclick="setLanguage('ar')" aria-label="العربية" title="التبديل إلى العربية">🇸🇦</button>
+      <button onclick="setLanguage('hi')" aria-label="हिंदी" title="हिंदी में स्विच करें">🇮🇳</button>
+    </div>
+  </header>
+
+  <nav class="flex-nav" aria-label="Navigation principale">
+    <a href="./PRESENTATION.html">PRESENTATION</a>
+    <a href="./FORMATION.html">FORMATION</a>
+    <a href="./EXPERIENCE & PROJET.html">EXPERIENCE & PROJET</a>
+    <a class="active" href="./COMPETENCES.html">COMPETENCES</a>
+    <a href="./CENTRE D'INTERET.html">CENTRE D'INTERET</a>
+    <a href="./AMBITION.html">AMBITION</a>
+    <a href="./CONTACT.html">CONTACT</a>
+  </nav>
+
+  <main id="main-content">
+    <section class="lang fr animate-fade-in-up">
+      <div class="presentation-header">
+        <h2>Compétences</h2>
+      </div>
+      
+      <!-- Section compétences informatiques -->
+      <h3>Compétences informatiques</h3>
+      <div class="col-container clearfix">
+        <div class="col-3">
+          <h4>Programmation</h4>
+          <ul class="feature-list">
+            <li>C++ (SDL2, jeux)</li>
+            <li>HTML/CSS (sites web)</li>
+            <li>Bases de SQL</li>
+            <li>Notions d'algorithmique</li>
+          </ul>
+        </div>
+        
+        <div class="col-3">
+          <h4>Bases de données</h4>
+          <ul class="feature-list">
+            <li>Conception de schémas</li>
+            <li>Oracle</li>
+            <li>SQLite</li>
+            <li>Requêtes complexes</li>
+          </ul>
+        </div>
+        
+        <div class="col-3">
+          <h4>Systèmes et réseaux</h4>
+          <ul class="feature-list">
+            <li>Administration Linux</li>
+            <li>Configuration Raspberry Pi</li>
+            <li>Notions de sécurité</li>
+            <li>Protocoles réseau</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Section langues et gestion -->
+      <h3>Langues et gestion</h3>
+      <div class="grid-3-columns">
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>Français</h4>
+            <p>Langue maternelle</p>
+            <div class="skill-bar" aria-label="Niveau de français: natif">
+              <div class="skill-level" data-level="100%" style="width: 0;">Natif</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>Anglais</h4>
+            <p>Niveau intermédiaire / B1</p>
+            <div class="skill-bar" aria-label="Niveau d'anglais: intermédiaire">
+              <div class="skill-level" data-level="65%" style="width: 0;">Intermédiaire</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>Allemand</h4>
+            <p>Niveau débutant / A2</p>
+            <div class="skill-bar" aria-label="Niveau d'allemand: débutant">
+              <div class="skill-level" data-level="35%" style="width: 0;">Débutant</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Section talents traditionnels -->
+      <h3>Talents traditionnels</h3>
+      <div class="flex-container">
+        <div class="flex-item flex-grow-1">
+          <h4>Couture</h4>
+          <p>J'ai développé des compétences en couture traditionnelle et moderne, me permettant de :</p>
+          <ul>
+            <li>Créer des vêtements et accessoires personnalisés</li>
+            <li>Maîtriser différentes techniques de couture</li>
+            <li>Adapter des patrons existants pour des besoins spécifiques</li>
+            <li>Réparer des vêtements</li>
+          </ul>
+        </div>
+        
+        <div class="flex-item flex-grow-1">
+          <h4>Élevage</h4>
+          <p>J'ai participé activement à l'élevage familial au Burkina Faso :</p>
+          <ul>
+            <li>Soins quotidiens des animaux (volaille, petit bétail)</li>
+            <li>Gestion de l'alimentation et de la santé des animaux</li>
+            <li>Compréhension des cycles de reproduction</li>
+            <li>Gestion de ressources durables</li>
+          </ul>
+        </div>
+        
+        <div class="flex-item flex-grow-1">
+          <h4>Musique</h4>
+          <p>Je pratique la musique comme activité créative :</p>
+          <ul>
+            <li>Apprentissage autodidacte de certains instruments de musique</li>
+            <li>Connaissance des rythmes et chants traditionnels</li>
+            <li>Exploration de différents genres musicaux</li>
+            <li>Adaptation de mélodies traditionnelles</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Section soft skills -->
+      <h3>Savoir-être</h3>
+      <div class="grid-3-columns">
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>Compétences personnelles</h4>
+            <ul>
+              <li>Assiduité et ponctualité</li>
+              <li>Travail consciencieux</li>
+              <li>Sens des responsabilités</li>
+              <li>Curiosité intellectuelle</li>
+              <li>Persévérance face aux défis</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>Compétences relationnelles</h4>
+            <ul>
+              <li>Empathie et écoute active</li>
+              <li>Honnêteté et transparence</li>
+              <li>Respect des différences</li>
+              <li>Communication claire</li>
+              <li>Adaptation interculturelle</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>Compétences professionnelles</h4>
+            <ul>
+              <li>Capacité d'adaptation</li>
+              <li>Esprit d'équipe</li>
+              <li>Gestion du temps</li>
+              <li>Organisation méthodique</li>
+              <li>Autonomie dans le travail</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Citation avec float -->
+      <div class="flex-container flex-center">
+        <div class="float-quote">
+          <p>"La combinaison de mes compétences techniques et traditionnelles me donne une perspective unique pour aborder les problèmes. J'apporte non seulement des solutions techniques, mais aussi une sensibilité culturelle et une approche durable inspirée de mes racines."</p>
+          <cite>Ma philosophie des compétences</cite>
+        </div>
+      </div>
+    </section>
+
+    <section class="lang en animate-fade-in-up">
+      <div class="presentation-header">
+        <h2>Skills</h2>
+      </div>
+      
+      <!-- IT skills in English -->
+      <h3>IT Skills</h3>
+      <div class="col-container clearfix">
+        <div class="col-3">
+          <h4>Programming</h4>
+          <ul class="feature-list">
+            <li>C++ (SDL2, games)</li>
+            <li>HTML/CSS (websites)</li>
+            <li>SQL basics</li>
+            <li>Algorithm concepts</li>
+          </ul>
+        </div>
+        
+        <div class="col-3">
+          <h4>Databases</h4>
+          <ul class="feature-list">
+            <li>Schema design</li>
+            <li>Oracle</li>
+            <li>SQLite</li>
+            <li>Complex queries</li>
+          </ul>
+        </div>
+        
+        <div class="col-3">
+          <h4>Systems & Networks</h4>
+          <ul class="feature-list">
+            <li>Linux administration</li>
+            <li>Raspberry Pi configuration</li>
+            <li>Security basics</li>
+            <li>Network protocols</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Languages and management in English -->
+      <h3>Languages and Management</h3>
+      <div class="grid-3-columns">
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>French</h4>
+            <p>Native language</p>
+            <div class="skill-bar" aria-label="French level: native">
+              <div class="skill-level" data-level="100%" style="width: 0;">Native</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>English</h4>
+            <p>Intermediate level / B1</p>
+            <div class="skill-bar" aria-label="English level: intermediate">
+              <div class="skill-level" data-level="65%" style="width: 0;">Intermediate</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>German</h4>
+            <p>Beginner level / A2</p>
+            <div class="skill-bar" aria-label="German level: beginner">
+              <div class="skill-level" data-level="35%" style="width: 0;">Beginner</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Traditional skills in English -->
+      <h3>Traditional Skills</h3>
+      <div class="flex-container">
+        <div class="flex-item flex-grow-1">
+          <h4>Sewing</h4>
+          <p>I have developed skills in traditional and modern sewing, allowing me to:</p>
+          <ul>
+            <li>Create customized clothing and accessories</li>
+            <li>Master different sewing techniques</li>
+            <li>Adapt existing patterns for specific needs</li>
+            <li>Repair and modify clothing</li>
+          </ul>
+        </div>
+        
+        <div class="flex-item flex-grow-1">
+          <h4>Livestock Farming</h4>
+          <p>I actively participated in family farming in Burkina Faso:</p>
+          <ul>
+            <li>Daily animal care (poultry, small livestock)</li>
+            <li>Management of animal feeding and health</li>
+            <li>Understanding of reproduction cycles</li>
+            <li>Sustainable resource management</li>
+          </ul>
+        </div>
+        
+        <div class="flex-item flex-grow-1">
+          <h4>Music</h4>
+          <p>I practice music as a creative activity:</p>
+          <ul>
+            <li>Self-taught guitar learning</li>
+            <li>Knowledge of traditional rhythms and songs</li>
+            <li>Exploration of different musical genres</li>
+            <li>Adaptation of traditional melodies</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Soft skills in English -->
+      <h3>Soft Skills</h3>
+      <div class="grid-3-columns">
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>Personal Skills</h4>
+            <ul>
+              <li>Dedication and punctuality</li>
+              <li>Conscientious work ethic</li>
+              <li>Sense of responsibility</li>
+              <li>Intellectual curiosity</li>
+              <li>Perseverance</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>Relational Skills</h4>
+            <ul>
+              <li>Empathy and active listening</li>
+              <li>Honesty and transparency</li>
+              <li>Respect for differences</li>
+              <li>Clear communication</li>
+              <li>Intercultural adaptation</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>Professional Skills</h4>
+            <ul>
+              <li>Adaptability</li>
+              <li>Team spirit</li>
+              <li>Time management</li>
+              <li>Methodical organization</li>
+              <li>Work autonomy</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quote in English -->
+      <div class="flex-container flex-center">
+        <div class="float-quote">
+          <p>"The combination of my technical and traditional skills gives me a unique perspective for problem-solving. I bring not only technical solutions but also cultural sensitivity and a sustainable approach inspired by my roots."</p>
+          <cite>My skills philosophy</cite>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spanish, Chinese, Arabic, and Hindi versions with similar structure -->
+    <section class="lang es">
+      <div class="presentation-header">
+        <h2>Competencias</h2>
+      </div>
+      
+      <!-- Structure améliorée pour l'espagnol -->
+      <h3>Competencias informáticas</h3>
+      <div class="col-container clearfix">
+        <div class="col-3">
+          <h4>Programación</h4>
+          <ul class="feature-list">
+            <li>C++ (SDL2, juegos)</li>
+            <li>HTML/CSS (sitios web)</li>
+            <li>SQL básico</li>
+            <li>Nociones de algoritmos</li>
+          </ul>
+        </div>
+        
+        <div class="col-3">
+          <h4>Bases de datos</h4>
+          <ul class="feature-list">
+            <li>Diseño de esquemas</li>
+            <li>Oracle</li>
+            <li>SQLite</li>
+            <li>Consultas complejas</li>
+          </ul>
+        </div>
+        
+        <div class="col-3">
+          <h4>Sistemas y redes</h4>
+          <ul class="feature-list">
+            <li>Administración Linux</li>
+            <li>Configuración Raspberry Pi</li>
+            <li>Nociones de seguridad</li>
+            <li>Protocolos de red</li>
+          </ul>
+        </div>
+      </div>
+      
+      <h3>Idiomas y gestión</h3>
+      <div class="grid-3-columns">
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>Francés</h4>
+            <p>Lengua materna</p>
+            <div class="skill-bar" aria-label="Nivel de francés: nativo">
+              <div class="skill-level" data-level="100%" style="width: 0;">Nativo</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>Inglés</h4>
+            <p>Nivel intermedio / B1</p>
+            <div class="skill-bar" aria-label="Nivel de inglés: intermedio">
+              <div class="skill-level" data-level="65%" style="width: 0;">Intermedio</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>Alemán</h4>
+            <p>Nivel principiante / A2</p>
+            <div class="skill-bar" aria-label="Nivel de alemán: principiante">
+              <div class="skill-level" data-level="35%" style="width: 0;">Principiante</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h3>Habilidades tradicionales</h3>
+      <div class="flex-container">
+        <div class="flex-item flex-grow-1">
+          <h4>Costura</h4>
+          <p>He desarrollado habilidades en costura tradicional y moderna que me permiten:</p>
+          <ul>
+            <li>Crear ropa y accesorios personalizados</li>
+            <li>Dominar diferentes técnicas de costura</li>
+            <li>Adaptar patrones existentes para necesidades específicas</li>
+            <li>Reparar y modificar prendas</li>
+          </ul>
+        </div>
+        
+        <div class="flex-item flex-grow-1">
+          <h4>Ganadería</h4>
+          <p>Participé activamente en la ganadería familiar en Burkina Faso:</p>
+          <ul>
+            <li>Cuidado diario de animales (aves de corral, pequeño ganado)</li>
+            <li>Gestión de la alimentación y salud animal</li>
+            <li>Comprensión de los ciclos reproductivos</li>
+            <li>Gestión sostenible de recursos</li>
+          </ul>
+        </div>
+        
+        <div class="flex-item flex-grow-1">
+          <h4>Música</h4>
+          <p>Practico la música como actividad creativa:</p>
+          <ul>
+            <li>Aprendizaje autodidacta de guitarra</li>
+            <li>Conocimiento de ritmos y cantos tradicionales</li>
+            <li>Exploración de diferentes géneros musicales</li>
+            <li>Adaptación de melodías tradicionales</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="lang zh">
+      <div class="presentation-header">
+        <h2>技能</h2>
+      </div>
+      
+      <!-- Contenu amélioré en chinois -->
+      <h3>信息技术技能</h3>
+      <div class="col-container clearfix">
+        <div class="col-3">
+          <h4>编程</h4>
+          <ul class="feature-list">
+            <li>C++ (SDL2, 游戏开发)</li>
+            <li>HTML/CSS (网站建设)</li>
+            <li>SQL基础</li>
+            <li>算法概念</li>
+          </ul>
+        </div>
+        
+        <div class="col-3">
+          <h4>数据库</h4>
+          <ul class="feature-list">
+            <li>数据库设计</li>
+            <li>Oracle 数据库</li>
+            <li>SQLite</li>
+            <li>复杂查询</li>
+          </ul>
+        </div>
+        
+        <div class="col-3">
+          <h4>系统和网络</h4>
+          <ul class="feature-list">
+            <li>Linux 管理</li>
+            <li>Raspberry Pi 配置</li>
+            <li>网络安全基础</li>
+            <li>网络协议</li>
+          </ul>
+        </div>
+      </div>
+      
+      <h3>语言和管理能力</h3>
+      <div class="grid-3-columns">
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>法语</h4>
+            <p>母语</p>
+            <div class="skill-bar" aria-label="法语水平: 母语">
+              <div class="skill-level" data-level="100%" style="width: 0;">母语</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>英语</h4>
+            <p>中级水平 / B1</p>
+            <div class="skill-bar" aria-label="英语水平: 中级">
+              <div class="skill-level" data-level="65%" style="width: 0;">中级</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>德语</h4>
+            <p>初级水平 / A2</p>
+            <div class="skill-bar" aria-label="德语水平: 初级">
+              <div class="skill-level" data-level="35%" style="width: 0;">初级</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h3>传统技能</h3>
+      <div class="flex-container">
+        <div class="flex-item flex-grow-1">
+          <h4>缝纫</h4>
+          <p>我在传统和现代缝纫方面发展了技能，使我能够：</p>
+          <ul>
+            <li>创建定制服装和配饰</li>
+            <li>掌握不同的缝纫技术</li>
+            <li>调整现有图案以满足特定需求</li>
+            <li>修复和改装衣物</li>
+          </ul>
+        </div>
+        
+        <div class="flex-item flex-grow-1">
+          <h4>畜牧业</h4>
+          <p>我积极参与布基纳法索的家庭养殖：</p>
+          <ul>
+            <li>日常动物护理（家禽，小型牲畜）</li>
+            <li>动物饲养和健康管理</li>
+            <li>了解繁殖周期</li>
+            <li>可持续资源管理</li>
+          </ul>
+        </div>
+        
+        <div class="flex-item flex-grow-1">
+          <h4>音乐</h4>
+          <p>我将音乐作为创造性活动来练习：</p>
+          <ul>
+            <li>自学吉他</li>
+            <li>了解传统节奏和歌曲</li>
+            <li>探索不同的音乐流派</li>
+            <li>改编传统旋律</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="lang ar" dir="rtl">
+      <div class="presentation-header">
+        <h2>المهارات</h2>
+      </div>
+      
+      <h3>مهارات تكنولوجيا المعلومات</h3>
+      <div class="col-container clearfix">
+        <div class="col-3">
+          <h4>البرمجة</h4>
+          <ul class="feature-list">
+            <li>C++ (SDL2، ألعاب)</li>
+            <li>HTML/CSS (مواقع الويب)</li>
+            <li>أساسيات SQL</li>
+            <li>مفاهيم الخوارزميات</li>
+          </ul>
+        </div>
+        
+        <div class="col-3">
+          <h4>قواعد البيانات</h4>
+          <ul class="feature-list">
+            <li>تصميم المخططات</li>
+            <li>Oracle</li>
+            <li>SQLite</li>
+            <li>استعلامات معقدة</li>
+          </ul>
+        </div>
+        
+        <div class="col-3">
+          <h4>أنظمة وشبكات</h4>
+          <ul class="feature-list">
+            <li>إدارة Linux</li>
+            <li>تكوين Raspberry Pi</li>
+            <li>أساسيات الأمان</li>
+            <li>بروتوكولات الشبكة</li>
+          </ul>
+        </div>
+      </div>
+      
+      <h3>اللغات والإدارة</h3>
+      <div class="grid-3-columns">
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>الفرنسية</h4>
+            <p>اللغة الأم</p>
+            <div class="skill-bar" aria-label="مستوى الفرنسية: لغة أم">
+              <div class="skill-level" data-level="100%" style="width: 0;">لغة أم</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>الإنجليزية</h4>
+            <p>المستوى المتوسط / B1</p>
+            <div class="skill-bar" aria-label="مستوى الإنجليزية: متوسط">
+              <div class="skill-level" data-level="65%" style="width: 0;">متوسط</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>الألمانية</h4>
+            <p>مستوى المبتدئين / A2</p>
+            <div class="skill-bar" aria-label="مستوى الألمانية: مبتدئ">
+              <div class="skill-level" data-level="35%" style="width: 0;">مبتدئ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h3>المهارات التقليدية</h3>
+      <div class="flex-container">
+        <div class="flex-item flex-grow-1">
+          <h4>الخياطة</h4>
+          <p>طورت مهارات في الخياطة التقليدية والحديثة تسمح لي بـ:</p>
+          <ul>
+            <li>إنشاء ملابس وإكسسوارات مخصصة</li>
+            <li>إتقان تقنيات الخياطة المختلفة</li>
+            <li>تكييف الأنماط الموجودة للاحتياجات المحددة</li>
+            <li>إصلاح وتعديل الملابس</li>
+          </ul>
+        </div>
+        
+        <div class="flex-item flex-grow-1">
+          <h4>تربية المواشي</h4>
+          <p>شاركت بنشاط في تربية العائلة في بوركينا فاسو:</p>
+          <ul>
+            <li>الرعاية اليومية للحيوانات (الدواجن والماشية الصغيرة)</li>
+            <li>إدارة تغذية وصحة الحيوان</li>
+            <li>فهم دورات التكاثر</li>
+            <li>إدارة الموارد المستدامة</li>
+          </ul>
+        </div>
+        
+        <div class="flex-item flex-grow-1">
+          <h4>الموسيقى</h4>
+          <p>أمارس الموسيقى كنشاط إبداعي:</p>
+          <ul>
+            <li>التعلم الذاتي للجيتار</li>
+            <li>معرفة الإيقاعات والأغاني التقليدية</li>
+            <li>استكشاف الأنواع الموسيقية المختلفة</li>
+            <li>تكييف الألحان التقليدية</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="lang hi">
+      <div class="presentation-header">
+        <h2>कौशल</h2>
+      </div>
+      
+      <!-- Contenu amélioré en hindi -->
+      <h3>आईटी कौशल</h3>
+      <div class="col-container clearfix">
+        <div class="col-3">
+          <h4>प्रोग्रामिंग</h4>
+          <ul class="feature-list">
+            <li>C++ (SDL2, गेम्स)</li>
+            <li>HTML/CSS (वेबसाइट)</li>
+            <li>SQL मूल बातें</li>
+            <li>एल्गोरिदम अवधारणाएँ</li>
+          </ul>
+        </div>
+        
+        <div class="col-3">
+          <h4>डेटाबेस</h4>
+          <ul class="feature-list">
+            <li>स्कीमा डिज़ाइन</li>
+            <li>Oracle</li>
+            <li>SQLite</li>
+            <li>जटिल क्वेरीज</li>
+          </ul>
+        </div>
+        
+        <div class="col-3">
+          <h4>सिस्टम और नेटवर्क</h4>
+          <ul class="feature-list">
+            <li>Linux प्रशासन</li>
+            <li>Raspberry Pi कॉन्फ़िगरेशन</li>
+            <li>सुरक्षा मूल बातें</li>
+            <li>नेटवर्क प्रोटोकॉल</li>
+          </ul>
+        </div>
+      </div>
+      
+      <h3>भाषाएँ और प्रबंधन</h3>
+      <div class="grid-3-columns">
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>फ्रेंच</h4>
+            <p>मातृभाषा</p>
+            <div class="skill-bar" aria-label="फ्रेंच स्तर: मातृभाषा">
+              <div class="skill-level" data-level="100%" style="width: 0;">मातृभाषा</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>अंग्रेज़ी</h4>
+            <p>मध्यम स्तर / B1</p>
+            <div class="skill-bar" aria-label="अंग्रेज़ी स्तर: मध्यम">
+              <div class="skill-level" data-level="65%" style="width: 0;">मध्यम</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-card-content">
+            <h4>जर्मन</h4>
+            <p>प्रारंभिक स्तर / A2</p>
+            <div class="skill-bar" aria-label="जर्मन स्तर: प्रारंभिक">
+              <div class="skill-level" data-level="35%" style="width: 0;">प्रारंभिक</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h3>पारंपरिक कौशल</h3>
+      <div class="flex-container">
+        <div class="flex-item flex-grow-1">
+          <h4>सिलाई</h4>
+          <p>मैंने पारंपरिक और आधुनिक सिलाई में कौशल विकसित किए हैं, जिससे मुझे निम्न की अनुमति मिलती है:</p>
+          <ul>
+            <li>अनुकूलित कपड़े और सहायक उपकरण बनाना</li>
+            <li>विभिन्न सिलाई तकनीकों में महारत हासिल करना</li>
+            <li>विशिष्ट आवश्यकताओं के लिए मौजूदा पैटर्न अनुकूलित करना</li>
+            <li>कपड़ों की मरम्मत और संशोधन करना</li>
+          </ul>
+        </div>
+        
+        <div class="flex-item flex-grow-1">
+          <h4>पशुपालन</h4>
+          <p>मैंने बुर्किना फासो में पारिवारिक खेती में सक्रिय रूप से भाग लिया:</p>
+          <ul>
+            <li>दैनिक पशु देखभाल (मुर्गी पालन, छोटे पशुधन)</li>
+            <li>पशु आहार और स्वास्थ्य प्रबंधन</li>
+            <li>प्रजनन चक्रों की समझ</li>
+            <li>स्थायी संसाधन प्रबंधन</li>
+          </ul>
+        </div>
+        
+        <div class="flex-item flex-grow-1">
+          <h4>संगीत</h4>
+          <p>मैं संगीत को एक रचनात्मक गतिविधि के रूप में अभ्यास करती हूँ:</p>
+          <ul>
+            <li>स्व-शिक्षित गिटार सीखना</li>
+            <li>पारंपरिक लय और गीतों का ज्ञान</li>
+            <li>विभिन्न संगीत शैलियों का अन्वेषण</li>
+            <li>पारंपरिक धुनों का अनुकूलन</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 Christelle Vanessa Soubeiga – Tous droits réservés</p>
+    <address>
+      IUT d'Orsay – 13 avenue des Sciences – 91190 Gif-sur-Yvette, France<br />
+      <a href="https://www.iut-orsay.universite-paris-saclay.fr/" target="_blank" rel="noopener">Site de l'IUT d'Orsay</a>
+    </address>
+  </footer>
+</body>
+</html>

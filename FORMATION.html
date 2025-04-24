@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Formation académique de Christelle Vanessa SOUBEIGA, étudiante en BUT Informatique à l'IUT d'Orsay">
+  <title>Formation – Christelle Vanessa SOUBEIGA</title>
+  
+  <!-- Préchargement des ressources critiques -->
+  <link rel="preload" href="./styles/index.css" as="style">
+  
+  <link rel="stylesheet" href="./styles/index.css" />
+  <link rel="stylesheet" href="./styles/presentation.css" />
+  <link rel="stylesheet" href="./styles/flexbox_101_nav.css" />
+  <link rel="stylesheet" href="./styles/grid_101.css" />
+  <link rel="stylesheet" href="./styles/float_101.css" />
+  <link rel="stylesheet" href="./styles/formation.css" />
+  <link rel="stylesheet" href="./styles/projet.css" />
+  <link rel="stylesheet" href="./styles/ambition.css" />
+  
+  <script>
+    function setLanguage(lang) {
+      // Masquer toutes les sections linguistiques
+      document.querySelectorAll(".lang").forEach(el => el.style.display = "none");
+      
+      // Afficher les sections dans la langue sélectionnée
+      document.querySelectorAll(".lang." + lang).forEach(el => el.style.display = "block");
+      
+      // Ajuster la direction du document pour l'arabe
+      if (lang === 'ar') {
+        document.body.setAttribute('dir', 'rtl');
+        document.querySelectorAll('.lang.ar').forEach(el => el.setAttribute('dir', 'rtl'));
+      } else {
+        document.body.setAttribute('dir', 'ltr');
+      }
+      
+      // Enregistrer la préférence de langue
+      localStorage.setItem('preferredLanguage', lang);
+      
+      // Mettre à jour l'apparence des boutons de langue
+      document.querySelectorAll('.language-buttons button').forEach(button => {
+        if (button.getAttribute('onclick').includes(`'${lang}'`)) {
+          button.classList.add('active-lang');
+        } else {
+          button.classList.remove('active-lang');
+        }
+      });
+    }
+    
+    function toggleFormationDetails(formationId, lang) {
+      const detailsElement = document.getElementById(`${formationId}-details-${lang}`);
+      
+      if (!detailsElement) return;
+      
+      // Mettre à jour l'attribut aria-expanded
+      const formationCard = document.querySelector(`[aria-controls="${formationId}-details-${lang}"]`);
+      if (formationCard) {
+        const isExpanded = formationCard.getAttribute('aria-expanded') === 'true';
+        formationCard.setAttribute('aria-expanded', !isExpanded);
+      }
+      
+      // Masquer tous les autres détails
+      document.querySelectorAll(".formation-details").forEach(detail => {
+        if (detail !== detailsElement) {
+          detail.style.display = "none";
+          
+          // Trouver le bouton correspondant et mettre à jour son aria-expanded
+          const otherFormationId = detail.id.split('-details-')[0];
+          const otherLang = detail.id.split('-details-')[1];
+          const otherCard = document.querySelector(`[aria-controls="${otherFormationId}-details-${otherLang}"]`);
+          if (otherCard) {
+            otherCard.setAttribute('aria-expanded', 'false');
+          }
+        }
+      });
+      
+      // Basculer l'affichage du détail sélectionné
+      if (detailsElement.style.display === "block") {
+        detailsElement.style.display = "none";
+      } else {
+        detailsElement.style.display = "block";
+        detailsElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+    
+    function closeDetails(formationId, lang) {
+      const detailsElement = document.getElementById(`${formationId}-details-${lang}`);
+      if (detailsElement) {
+        detailsElement.style.display = "none";
+        
+        // Mettre à jour l'attribut aria-expanded du bouton correspondant
+        const formationCard = document.querySelector(`[aria-controls="${formationId}-details-${lang}"]`);
+        if (formationCard) {
+          formationCard.setAttribute('aria-expanded', 'false');
+        }
+      }
+    }
+    
+    window.addEventListener("DOMContentLoaded", () => {
+      // Récupérer la préférence de langue ou utiliser le français par défaut
+      const savedLanguage = localStorage.getItem('preferredLanguage') || 'fr';
+      
+      // Vérifier si nous avons un paramètre de langue dans l'URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const langParam = urlParams.get('lang');
+      
+      if (langParam && ['fr', 'en', 'es', 'zh', 'ar', 'hi'].includes(langParam)) {
+        setLanguage(langParam);
+      } else {
+        setLanguage(savedLanguage);
+      }
+      
+      // Masquer tous les détails au chargement
+      document.querySelectorAll(".formation-details").forEach(el => {
+        el.style.display = "none";
+      });
+      
+      // Modifier les liens pour conserver la langue lors de la navigation
+      document.querySelectorAll('nav a').forEach(link => {
+        const currentHref = link.getAttribute('href');
+        if (currentHref && currentHref.includes('.html')) {
+          const langToUse = langParam || savedLanguage;
+          link.setAttribute('href', `${currentHref}?lang=${langToUse}`);
+        }
+      });
+    });
+  </script>
+  
+</head>
+<body>
+  <!-- Lien d'accessibilité pour passer au contenu principal -->
+  <a href="#main-content" class="skip-link">Passer au contenu principal</a>
+
+  <header>
+    <h1>Christelle Vanessa SOUBEIGA</h1>
+    <h2>Étudiante en BUT Informatique – IUT d'Orsay</h2>
+    <div class="language-buttons" role="group" aria-label="Sélection de langue">
+      <button onclick="setLanguage('fr')" aria-label="Français" title="Passer en français">🇫🇷</button>
+      <button onclick="setLanguage('en')" aria-label="English" title="Switch to English">🇬🇧</button>
+      <button onclick="setLanguage('es')" aria-label="Español" title="Cambiar a español">🇪🇸</button>
+      <button onclick="setLanguage('zh')" aria-label="中文" title="切换到中文">🇨🇳</button>
+      <button onclick="setLanguage('ar')" aria-label="العربية" title="التبديل إلى العربية">🇸🇦</button>
+      <button onclick="setLanguage('hi')" aria-label="हिंदी" title="हिंदी में स्विच करें">🇮🇳</button>
+    </div>
+  </header>
+
+  <!-- Navigation avec la classe flex-nav -->
+  <nav class="flex-nav" aria-label="Navigation principale">
+    <a href="./PRESENTATION.html">PRESENTATION</a>
+    <a class="active" href="./FORMATION.html">FORMATION</a>
+    <a href="./EXPERIENCE & PROJET.html">EXPERIENCE & PROJET</a>
+    <a href="./COMPETENCES.html">COMPETENCES</a>
+    <a href="./CENTRE D'INTERET.html">CENTRE D'INTERET</a>
+    <a href="./AMBITION.html">AMBITION</a>
+    <a href="./CONTACT.html">CONTACT</a>
+  </nav>
+
+  <main id="main-content">
+    <section class="lang fr animate-fade-in-up">
+      <div class="presentation-header">
+        <h2>Parcours de formation</h2>
+        <p>Cliquez sur les images pour découvrir les spécialités et la localisation de chaque formation</p>
+      </div>
+      
+      <!-- Carte de formation BUT Informatique -->
+      <div class="formation-card" onclick="toggleFormationDetails('but', 'fr')" 
+           tabindex="0" role="button" aria-expanded="false" aria-controls="but-details-fr"
+           onkeypress="if(event.key==='Enter') toggleFormationDetails('but', 'fr')">
+        <img src="./styles/images/iut.png" alt="IUT d'Orsay" class="formation-image">
+        <h3 class="formation-title">
+          BUT Informatique
+          <small>IUT d'Orsay - Université Paris-Saclay | Septembre 2024 - Présent</small>
+        </h3>
+      </div>
+      
+      <!-- Détails de la formation BUT -->
+      <div id="but-details-fr" class="formation-details" aria-labelledby="but-details-fr-heading">
+        <h4 id="but-details-fr-heading">Bachelor Universitaire de Technologie en Informatique</h4>
+        
+        <div class="formation-specialites">
+          <h5>Spécialités et compétences développées</h5>
+          <ul>
+            <li><strong>Programmation et Algorithmes :</strong> C++, Java, Structure de données</li>
+            <li><strong>Réseaux et Systèmes :</strong> Architecture réseau, Administration Linux, Virtualisation</li>
+            <li><strong>Bases de données :</strong> Conception, SQL, Oracle, SQLite</li>
+            <li><strong>Développement Web :</strong> HTML/CSS, JavaScript</li>
+            <li><strong>Mathématiques pour l'informatique :</strong> Graphes, Matrices, Probabilités</li>
+            <li><strong>Gestion de projet :</strong> Méthodologies Agile, Outils collaboratifs</li>
+          </ul>
+        </div>
+        
+        <div class="formation-location">
+          <h5>Localisation de l'établissement</h5>
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=2.1646451950073247%2C48.70046497660912%2C2.1735930442810063%2C48.70420125382047&amp;layer=mapnik&amp;marker=48.70233326392264%2C2.169119119644165" 
+                 title="Carte de l'IUT d'Orsay"></iframe>
+          <p>
+            <strong>Adresse :</strong> IUT d'Orsay – 13 avenue des Sciences – 91190 Gif-sur-Yvette, France<br>
+            <a href="https://www.iut-orsay.universite-paris-saclay.fr/" target="_blank">Site web de l'IUT d'Orsay</a>
+          </p>
+        </div>
+        
+        <button class="close-details" onclick="closeDetails('but', 'fr')" aria-label="Fermer les détails">Fermer les détails</button>
+      </div>
+      
+      <!-- Carte de formation Baccalauréat -->
+      <div class="formation-card" onclick="toggleFormationDetails('bac', 'fr')"
+           tabindex="0" role="button" aria-expanded="false" aria-controls="bac-details-fr"
+           onkeypress="if(event.key==='Enter') toggleFormationDetails('bac', 'fr')">
+        <img src="./styles/images/baccalaureat.png" alt="Lycée au Burkina Faso" class="formation-image">
+        <h3 class="formation-title">
+          Baccalauréat Série D
+          <small>Spécialité Scientifique | Mention Bien | 2024</small>
+        </h3>
+      </div>
+      
+      <!-- Détails du Baccalauréat -->
+      <div id="bac-details-fr" class="formation-details" aria-labelledby="bac-details-fr-heading">
+        <h4 id="bac-details-fr-heading">Baccalauréat Série D - Sciences de la Nature et de la Vie</h4>
+        
+        <div class="formation-specialites">
+          <h5>Spécialités et matières principales</h5>
+          <ul>
+            <li><strong>Mathématiques avancées :</strong> Analyse, Algèbre, Géométrie, Probabilités</li>
+            <li><strong>Sciences physiques et chimie :</strong> Mécanique, Électricité, Chimie organique et minérale</li>
+            <li><strong>Biologie et sciences naturelles :</strong> Physiologie, Génétique, Écologie</li>
+            <li><strong>Philosophie et langues :</strong> Français, Anglais, Philosophie</li>
+            <li><strong>Histoire-Géographie :</strong> Histoire du monde, Géographie économique et humaine</li>
+          </ul>
+        </div>
+        
+        <div class="formation-location">
+          <h5>Localisation de l'établissement</h5>
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-1.5732550621032717%2C12.391510697136171%2C-1.5632987022399905%2C12.398667686238069&amp;layer=mapnik&amp;marker=12.395089216246944%2C-1.5682768821716309"
+                 title="Carte du lycée au Burkina Faso"></iframe>
+          <p>
+            <strong>Lieu :</strong> Burkina Faso<br>
+            <strong>Système éducatif :</strong> Basé sur le modèle français, adapté au contexte local
+          </p>
+        </div>
+        
+        <button class="close-details" onclick="closeDetails('bac', 'fr')" aria-label="Fermer les détails">Fermer les détails</button>
+      </div>
+      
+      <!-- Chronologie éducative -->
+      <div class="timeline">
+        <h3>Parcours éducatif</h3>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">Septembre 2024 - Présent</div>
+            <h4>BUT Informatique</h4>
+            <p>Formation universitaire de trois ans en informatique à l'IUT d'Orsay. Acquisition de compétences théoriques et pratiques dans différents domaines de l'informatique.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">Juin 2024</div>
+            <h4>Baccalauréat Série D</h4>
+            <p>Obtention du baccalauréat scientifique avec mention Bien. Formation solide en mathématiques, physique-chimie et sciences de la vie et de la terre.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2021 - 2024</div>
+            <h4>Études secondaires</h4>
+            <p>Études secondaires au Burkina Faso avec spécialisation scientifique. Participation à diverses activités extrascolaires et engagement dans la vie de l'établissement.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Témoignage -->
+      <div class="flex-container flex-center">
+        <div class="float-quote">
+          <p>"Ma formation combine une solide base scientifique acquise au Burkina Faso et une spécialisation technique à l'IUT d'Orsay en France. Ce parcours international enrichit ma vision et ma compréhension des enjeux informatiques actuels."</p>
+          <cite>Ma réflexion personnelle sur mon parcours académique</cite>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section anglaise -->
+    <section class="lang en animate-fade-in-up">
+      <div class="presentation-header">
+        <h2>Educational Background</h2>
+        <p>Click on the images to discover the specialties and location of each program</p>
+      </div>
+      
+      <!-- Bachelor's Degree Card -->
+      <div class="formation-card" onclick="toggleFormationDetails('but', 'en')"
+           tabindex="0" role="button" aria-expanded="false" aria-controls="but-details-en"
+           onkeypress="if(event.key==='Enter') toggleFormationDetails('but', 'en')">
+        <img src="./styles/images/iut.png" alt="IUT d'Orsay" class="formation-image">
+        <h3 class="formation-title">
+          Bachelor's Degree in Computer Science
+          <small>IUT d'Orsay - Paris-Saclay University | September 2024 - Present</small>
+        </h3>
+      </div>
+      
+      <!-- Bachelor's Degree Details -->
+      <div id="but-details-en" class="formation-details" aria-labelledby="but-details-en-heading">
+        <h4 id="but-details-en-heading">Bachelor of Technology in Computer Science</h4>
+        
+        <div class="formation-specialites">
+          <h5>Specialties and skills developed</h5>
+          <ul>
+            <li><strong>Programming and Algorithms:</strong> C++, Java, Data Structures</li>
+            <li><strong>Networks and Systems:</strong> Network Architecture, Linux Administration, Virtualization</li>
+            <li><strong>Databases:</strong> Design, SQL, Oracle, SQLite</li>
+            <li><strong>Web Development:</strong> HTML/CSS, JavaScript</li>
+            <li><strong>Mathematics for Computer Science:</strong> Algebra, Logic, Probability</li>
+            <li><strong>Project Management:</strong> Agile Methodologies, Collaborative Tools</li>
+          </ul>
+        </div>
+        
+        <div class="formation-location">
+          <h5>Institution Location</h5>
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=2.1646451950073247%2C48.70046497660912%2C2.1735930442810063%2C48.70420125382047&amp;layer=mapnik&amp;marker=48.70233326392264%2C2.169119119644165"
+                 title="Map of IUT d'Orsay"></iframe>
+          <p>
+            <strong>Address:</strong> IUT d'Orsay – 13 avenue des Sciences – 91190 Gif-sur-Yvette, France<br>
+            <a href="https://www.iut-orsay.universite-paris-saclay.fr/" target="_blank">IUT d'Orsay Website</a>
+          </p>
+        </div>
+        
+        <button class="close-details" onclick="closeDetails('but', 'en')" aria-label="Close details">Close details</button>
+      </div>
+      
+      <!-- High School Diploma Card -->
+      <div class="formation-card" onclick="toggleFormationDetails('bac', 'en')"
+           tabindex="0" role="button" aria-expanded="false" aria-controls="bac-details-en"
+           onkeypress="if(event.key==='Enter') toggleFormationDetails('bac', 'en')">
+        <img src="./styles/images/baccalaureat.png" alt="High School in Burkina Faso" class="formation-image">
+        <h3 class="formation-title">
+          High School Diploma (Baccalauréat) - Series D
+          <small>Scientific Specialization | With Honors | 2024</small>
+        </h3>
+      </div>
+      
+      <!-- High School Diploma Details -->
+      <div id="bac-details-en" class="formation-details" aria-labelledby="bac-details-en-heading">
+        <h4 id="bac-details-en-heading">Baccalauréat Series D - Life and Natural Sciences</h4>
+        
+        <div class="formation-specialites">
+          <h5>Specialties and main subjects</h5>
+          <ul>
+            <li><strong>Advanced Mathematics:</strong> Analysis, Algebra, Geometry, Probability</li>
+            <li><strong>Physics and Chemistry:</strong> Mechanics, Electricity, Organic and Inorganic Chemistry</li>
+            <li><strong>Biology and Natural Sciences:</strong> Physiology, Genetics, Ecology</li>
+            <li><strong>Philosophy and Languages:</strong> French, English, Philosophy</li>
+            <li><strong>History-Geography:</strong> World History, Economic and Human Geography</li>
+          </ul>
+        </div>
+        
+        <div class="formation-location">
+          <h5>Institution Location</h5>
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-1.5732550621032717%2C12.391510697136171%2C-1.5632987022399905%2C12.398667686238069&amp;layer=mapnik&amp;marker=12.395089216246944%2C-1.5682768821716309"
+                 title="Map of high school in Burkina Faso"></iframe>
+          <p>
+            <strong>Location:</strong> Burkina Faso<br>
+            <strong>Educational System:</strong> Based on the French model, adapted to the local context
+          </p>
+        </div>
+        
+        <button class="close-details" onclick="closeDetails('bac', 'en')" aria-label="Close details">Close details</button>
+      </div>
+      
+      <!-- Educational Timeline in English -->
+      <div class="timeline">
+        <h3>Educational Journey</h3>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">September 2024 - Present</div>
+            <h4>Bachelor's Degree in Computer Science</h4>
+            <p>Three-year university education in computer science at IUT d'Orsay. Acquisition of theoretical and practical skills in various fields of computer science.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">June 2024</div>
+            <h4>High School Diploma (Baccalauréat) - Series D</h4>
+            <p>Obtained scientific baccalaureate with honors. Solid training in mathematics, physics-chemistry and life sciences.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2021 - 2024</div>
+            <h4>Secondary Education</h4>
+            <p>Secondary education in Burkina Faso with scientific specialization. Participation in various extracurricular activities and involvement in school life.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quote in English -->
+      <div class="flex-container flex-center">
+        <div class="float-quote">
+          <p>"My education combines a solid scientific foundation acquired in Burkina Faso and technical specialization at the IUT d'Orsay in France. This international background enriches my vision and understanding of current IT challenges."</p>
+          <cite>My personal reflection on my academic journey</cite>
+        </div>
+      </div>
+    </section>
+
+    <!-- Versions améliorées pour les autres langues -->
+    <section class="lang es">
+      <div class="presentation-header">
+        <h2>Formación Académica</h2>
+        <p>Haga clic en las imágenes para descubrir las especialidades y la ubicación de cada formación</p>
+      </div>
+      
+      <!-- Cartes de formation en espagnol (versions améliorées) -->
+      <div class="formation-card" onclick="toggleFormationDetails('but', 'es')"
+           tabindex="0" role="button" aria-expanded="false" aria-controls="but-details-es"
+           onkeypress="if(event.key==='Enter') toggleFormationDetails('but', 'es')">
+        <img src="./styles/images/iut.png" alt="IUT d'Orsay" class="formation-image">
+        <h3 class="formation-title">
+          Grado en Informática
+          <small>IUT d'Orsay - Universidad Paris-Saclay | Septiembre 2024 - Presente</small>
+        </h3>
+      </div>
+      
+      <div id="but-details-es" class="formation-details" aria-labelledby="but-details-es-heading">
+        <h4 id="but-details-es-heading">Grado Universitario de Tecnología en Informática</h4>
+        <div class="formation-specialites">
+          <h5>Especialidades y competencias desarrolladas</h5>
+          <ul>
+            <li><strong>Programación y Algoritmos:</strong> C++, Java, Estructuras de datos</li>
+            <li><strong>Redes y Sistemas:</strong> Arquitectura de red, Administración Linux, Virtualización</li>
+            <li><strong>Bases de datos:</strong> Diseño, SQL, Oracle, SQLite</li>
+            <li><strong>Desarrollo Web:</strong> HTML/CSS, JavaScript</li>
+            <li><strong>Matemáticas para Informática:</strong> Álgebra, Lógica, Probabilidad</li>
+            <li><strong>Gestión de proyectos:</strong> Metodologías Ágiles, Herramientas colaborativas</li>
+          </ul>
+        </div>
+        
+        <div class="formation-location">
+          <h5>Ubicación</h5>
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=2.1646451950073247%2C48.70046497660912%2C2.1735930442810063%2C48.70420125382047&amp;layer=mapnik&amp;marker=48.70233326392264%2C2.169119119644165"
+                 title="Mapa del IUT d'Orsay"></iframe>
+          <p>
+            <strong>Dirección:</strong> IUT d'Orsay – 13 avenue des Sciences – 91190 Gif-sur-Yvette, Francia<br>
+            <a href="https://www.iut-orsay.universite-paris-saclay.fr/" target="_blank">Sitio web del IUT d'Orsay</a>
+          </p>
+        </div>
+        
+        <button class="close-details" onclick="closeDetails('but', 'es')" aria-label="Cerrar detalles">Cerrar detalles</button>
+      </div>
+      
+      <div class="formation-card" onclick="toggleFormationDetails('bac', 'es')"
+           tabindex="0" role="button" aria-expanded="false" aria-controls="bac-details-es"
+           onkeypress="if(event.key==='Enter') toggleFormationDetails('bac', 'es')">
+        <img src="./styles/images/baccalaureat.png" alt="Escuela secundaria en Burkina Faso" class="formation-image">
+        <h3 class="formation-title">
+          Bachillerato Serie D
+          <small>Especialidad Científica | Con mención | 2024</small>
+        </h3>
+      </div>
+      
+      <div id="bac-details-es" class="formation-details" aria-labelledby="bac-details-es-heading">
+        <h4 id="bac-details-es-heading">Bachillerato Serie D - Ciencias de la Naturaleza y de la Vida</h4>
+        <div class="formation-specialites">
+          <h5>Materias principales</h5>
+          <ul>
+            <li><strong>Matemáticas avanzadas:</strong> Análisis, Álgebra, Geometría, Probabilidad</li>
+            <li><strong>Física y Química:</strong> Mecánica, Electricidad, Química orgánica e inorgánica</li>
+            <li><strong>Biología y Ciencias Naturales:</strong> Fisiología, Genética, Ecología</li>
+            <li><strong>Filosofía e Idiomas:</strong> Francés, Inglés, Filosofía</li>
+            <li><strong>Historia-Geografía:</strong> Historia Mundial, Geografía económica y humana</li>
+          </ul>
+        </div>
+        
+        <div class="formation-location">
+          <h5>Ubicación</h5>
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-1.5732550621032717%2C12.391510697136171%2C-1.5632987022399905%2C12.398667686238069&amp;layer=mapnik&amp;marker=12.395089216246944%2C-1.5682768821716309"
+                 title="Mapa de escuela en Burkina Faso"></iframe>
+          <p>
+            <strong>Ubicación:</strong> Burkina Faso<br>
+            <strong>Sistema educativo:</strong> Basado en el modelo francés, adaptado al contexto local
+          </p>
+        </div>
+        
+        <button class="close-details" onclick="closeDetails('bac', 'es')" aria-label="Cerrar detalles">Cerrar detalles</button>
+      </div>
+      
+      <!-- Chronologie en espagnol -->
+      <div class="timeline">
+        <h3>Trayectoria educativa</h3>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">Septiembre 2024 - Presente</div>
+            <h4>Grado en Informática</h4>
+            <p>Formación universitaria de tres años en informática en el IUT d'Orsay. Adquisición de competencias teóricas y prácticas en diversos campos de la informática.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">Junio 2024</div>
+            <h4>Bachillerato Serie D</h4>
+            <p>Obtención del bachillerato científico con mención. Formación sólida en matemáticas, física-química y ciencias de la vida.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sections similaires pour les autres langues (zh, ar, hi) avec versions améliorées -->
+    <section class="lang zh">
+      <div class="presentation-header">
+        <h2>教育背景</h2>
+        <p>点击图片查看每个教育项目的专业和位置</p>
+      </div>
+      
+      <!-- Cartes en chinois -->
+      <div class="formation-card" onclick="toggleFormationDetails('but', 'zh')"
+           tabindex="0" role="button" aria-expanded="false" aria-controls="but-details-zh"
+           onkeypress="if(event.key==='Enter') toggleFormationDetails('but', 'zh')">
+        <img src="./styles/images/iut.png" alt="奥赛理工学院" class="formation-image">
+        <h3 class="formation-title">
+          计算机科学学士学位
+          <small>奥赛理工学院 - 巴黎萨克雷大学 | 2024年9月 - 至今</small>
+        </h3>
+      </div>
+      
+      <div id="but-details-zh" class="formation-details" aria-labelledby="but-details-zh-heading">
+        <h4 id="but-details-zh-heading">计算机科学技术学士学位</h4>
+        <div class="formation-specialites">
+          <h5>专业和技能</h5>
+          <ul>
+            <li><strong>编程和算法：</strong> C++, Java, 数据结构</li>
+            <li><strong>网络和系统：</strong> 网络架构, Linux管理, 虚拟化</li>
+            <li><strong>数据库：</strong> 设计, SQL, Oracle, SQLite</li>
+            <li><strong>网络开发：</strong> HTML/CSS, JavaScript</li>
+            <li><strong>计算机数学：</strong> 代数, 逻辑, 概率</li>
+            <li><strong>项目管理：</strong> 敏捷方法, 协作工具</li>
+          </ul>
+        </div>
+        
+        <div class="formation-location">
+          <h5>位置</h5>
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=2.1646451950073247%2C48.70046497660912%2C2.1735930442810063%2C48.70420125382047&amp;layer=mapnik&amp;marker=48.70233326392264%2C2.169119119644165"
+                 title="奥赛理工学院地图"></iframe>
+          <p>
+            <strong>地址：</strong> IUT d'Orsay – 13 avenue des Sciences – 91190 Gif-sur-Yvette, 法国<br>
+            <a href="https://www.iut-orsay.universite-paris-saclay.fr/" target="_blank">奥赛理工学院网站</a>
+          </p>
+        </div>
+        
+        <button class="close-details" onclick="closeDetails('but', 'zh')" aria-label="关闭详情">关闭详情</button>
+      </div>
+      
+      <div class="formation-card" onclick="toggleFormationDetails('bac', 'zh')"
+           tabindex="0" role="button" aria-expanded="false" aria-controls="bac-details-zh"
+           onkeypress="if(event.key==='Enter') toggleFormationDetails('bac', 'zh')">
+        <img src="./styles/images/baccalaureat.png" alt="布基纳法索高中" class="formation-image">
+        <h3 class="formation-title">
+          高中文凭 - D系列
+          <small>科学专业 | 优等成绩 | 2024年</small>
+        </h3>
+      </div>
+      
+      <div id="bac-details-zh" class="formation-details" aria-labelledby="bac-details-zh-heading">
+        <h4 id="bac-details-zh-heading">高中文凭 D系列 - 生命和自然科学</h4>
+        <div class="formation-specialites">
+          <h5>主要科目</h5>
+          <ul>
+            <li><strong>高等数学：</strong> 分析, 代数, 几何, 概率</li>
+            <li><strong>物理和化学：</strong> 力学, 电学, 有机和无机化学</li>
+            <li><strong>生物和自然科学：</strong> 生理学, 遗传学, 生态学</li>
+            <li><strong>哲学和语言：</strong> 法语, 英语, 哲学</li>
+            <li><strong>历史-地理：</strong> 世界历史, 经济和人文地理</li>
+          </ul>
+        </div>
+        
+        <div class="formation-location">
+          <h5>位置</h5>
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-1.5732550621032717%2C12.391510697136171%2C-1.5632987022399905%2C12.398667686238069&amp;layer=mapnik&amp;marker=12.395089216246944%2C-1.5682768821716309"
+                 title="布基纳法索高中地图"></iframe>
+          <p>
+            <strong>位置：</strong> 布基纳法索<br>
+            <strong>教育系统：</strong> 基于法国模式, 适应当地环境
+          </p>
+        </div>
+        
+        <button class="close-details" onclick="closeDetails('bac', 'zh')" aria-label="关闭详情">关闭详情</button>
+      </div>
+    </section>
+
+    <section class="lang ar" dir="rtl">
+      <div class="presentation-header">
+        <h2>المسار التعليمي</h2>
+        <p>انقر على الصور لاكتشاف تخصصات وموقع كل دورة تدريبية</p>
+      </div>
+      
+      <!-- Cartes en arabe -->
+      <div class="formation-card" onclick="toggleFormationDetails('but', 'ar')"
+           tabindex="0" role="button" aria-expanded="false" aria-controls="but-details-ar"
+           onkeypress="if(event.key==='Enter') toggleFormationDetails('but', 'ar')">
+        <img src="./styles/images/iut.png" alt="معهد التكنولوجيا الجامعي بأورساي" class="formation-image">
+        <h3 class="formation-title">
+          بكالوريوس في علوم الكمبيوتر
+          <small>معهد التكنولوجيا الجامعي بأورساي - جامعة باريس ساكلاي | سبتمبر 2024 - الحاضر</small>
+        </h3>
+      </div>
+      
+      <div id="but-details-ar" class="formation-details" aria-labelledby="but-details-ar-heading" dir="rtl">
+        <h4 id="but-details-ar-heading">بكالوريوس التكنولوجيا في علوم الكمبيوتر</h4>
+        <div class="formation-specialites">
+          <h5>التخصصات والمهارات</h5>
+          <ul>
+            <li><strong>البرمجة والخوارزميات:</strong> سي++، جافا، هياكل البيانات</li>
+            <li><strong>الشبكات والأنظمة:</strong> بنية الشبكة، إدارة لينوكس، المحاكاة الافتراضية</li>
+            <li><strong>قواعد البيانات:</strong> التصميم، SQL، أوراكل، SQLite</li>
+            <li><strong>تطوير الويب:</strong> HTML/CSS، جافاسكريبت</li>
+            <li><strong>الرياضيات للحوسبة:</strong> الجبر، المنطق، الاحتمالات</li>
+            <li><strong>إدارة المشاريع:</strong> منهجيات أجايل، أدوات تعاونية</li>
+          </ul>
+        </div>
+        
+        <div class="formation-location">
+          <h5>الموقع</h5>
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=2.1646451950073247%2C48.70046497660912%2C2.1735930442810063%2C48.70420125382047&amp;layer=mapnik&amp;marker=48.70233326392264%2C2.169119119644165"
+                 title="خريطة معهد التكنولوجيا الجامعي بأورساي"></iframe>
+          <p>
+            <strong>العنوان:</strong> معهد التكنولوجيا الجامعي بأورساي – 13 شارع العلوم – 91190 جيف سير إيفيت، فرنسا<br>
+            <a href="https://www.iut-orsay.universite-paris-saclay.fr/" target="_blank">موقع معهد التكنولوجيا الجامعي بأورساي</a>
+          </p>
+        </div>
+        
+        <button class="close-details" onclick="closeDetails('but', 'ar')" aria-label="إغلاق التفاصيل">إغلاق التفاصيل</button>
+      </div>
+      
+      <div class="formation-card" onclick="toggleFormationDetails('bac', 'ar')"
+           tabindex="0" role="button" aria-expanded="false" aria-controls="bac-details-ar"
+           onkeypress="if(event.key==='Enter') toggleFormationDetails('bac', 'ar')">
+        <img src="./styles/images/baccalaureat.png" alt="مدرسة ثانوية في بوركينا فاسو" class="formation-image">
+        <h3 class="formation-title">
+          شهادة البكالوريا - سلسلة D
+          <small>تخصص علمي | بدرجة امتياز | 2024</small>
+        </h3>
+      </div>
+      
+      <div id="bac-details-ar" class="formation-details" aria-labelledby="bac-details-ar-heading" dir="rtl">
+        <h4 id="bac-details-ar-heading">شهادة البكالوريا سلسلة D - علوم الحياة والطبيعة</h4>
+        <div class="formation-specialites">
+          <h5>المواد الرئيسية</h5>
+          <ul>
+            <li><strong>الرياضيات المتقدمة:</strong> التحليل، الجبر، الهندسة، الاحتمالات</li>
+            <li><strong>الفيزياء والكيمياء:</strong> الميكانيكا، الكهرباء، الكيمياء العضوية وغير العضوية</li>
+            <li><strong>علم الأحياء والعلوم الطبيعية:</strong> علم وظائف الأعضاء، علم الوراثة، علم البيئة</li>
+            <li><strong>الفلسفة واللغات:</strong> الفرنسية، الإنجليزية، الفلسفة</li>
+            <li><strong>التاريخ والجغرافيا:</strong> تاريخ العالم، الجغرافيا الاقتصادية والإنسانية</li>
+          </ul>
+        </div>
+        
+        <div class="formation-location">
+          <h5>الموقع</h5>
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-1.5732550621032717%2C12.391510697136171%2C-1.5632987022399905%2C12.398667686238069&amp;layer=mapnik&amp;marker=12.395089216246944%2C-1.5682768821716309"
+                 title="خريطة المدرسة في بوركينا فاسو"></iframe>
+          <p>
+            <strong>الموقع:</strong> بوركينا فاسو<br>
+            <strong>النظام التعليمي:</strong> مبني على النموذج الفرنسي، مكيف مع السياق المحلي
+          </p>
+        </div>
+        
+        <button class="close-details" onclick="closeDetails('bac', 'ar')" aria-label="إغلاق التفاصيل">إغلاق التفاصيل</button>
+      </div>
+    </section>
+
+    <section class="lang hi">
+      <div class="presentation-header">
+        <h2>शैक्षिक पृष्ठभूमि</h2>
+        <p>प्रत्येक कार्यक्रम की विशेषताओं और स्थान की जानकारी के लिए छवियों पर क्लिक करें</p>
+      </div>
+      
+      <!-- Cartes en hindi -->
+      <div class="formation-card" onclick="toggleFormationDetails('but', 'hi')"
+           tabindex="0" role="button" aria-expanded="false" aria-controls="but-details-hi"
+           onkeypress="if(event.key==='Enter') toggleFormationDetails('but', 'hi')">
+        <img src="./styles/images/iut.png" alt="ओर्से प्रौद्योगिकी संस्थान" class="formation-image">
+        <h3 class="formation-title">
+          कंप्यूटर विज्ञान में स्नातक की डिग्री
+          <small>ओर्से प्रौद्योगिकी संस्थान - पेरिस-सैकले विश्वविद्यालय | सितंबर 2024 - वर्तमान</small>
+        </h3>
+      </div>
+      
+      <div id="but-details-hi" class="formation-details" aria-labelledby="but-details-hi-heading">
+        <h4 id="but-details-hi-heading">कंप्यूटर विज्ञान में प्रौद्योगिकी स्नातक</h4>
+        <div class="formation-specialites">
+          <h5>विशेषज्ञता और कौशल</h5>
+          <ul>
+            <li><strong>प्रोग्रामिंग और एल्गोरिदम:</strong> C++, Java, डेटा स्ट्रक्चर</li>
+            <li><strong>नेटवर्क और सिस्
+			<li><strong>नेटवर्क और सिस्टम:</strong> नेटवर्क आर्किटेक्चर, लिनक्स प्रशासन, वर्चुअलाइजेशन</li>
+            <li><strong>डेटाबेस:</strong> डिजाइन, SQL, Oracle, SQLite</li>
+            <li><strong>वेब विकास:</strong> HTML/CSS, JavaScript</li>
+            <li><strong>कंप्यूटर विज्ञान के लिए गणित:</strong> अलजेब्रा, लॉजिक, प्रोबैबिलिटी</li>
+            <li><strong>परियोजना प्रबंधन:</strong> एजाइल मेथोडोलॉजीज, कोलेबोरेटिव टूल्स</li>
+          </ul>
+        </div>
+        
+        <div class="formation-location">
+          <h5>स्थान</h5>
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=2.1646451950073247%2C48.70046497660912%2C2.1735930442810063%2C48.70420125382047&amp;layer=mapnik&amp;marker=48.70233326392264%2C2.169119119644165"
+                 title="ओर्से प्रौद्योगिकी संस्थान का नक्शा"></iframe>
+          <p>
+            <strong>पता:</strong> IUT d'Orsay – 13 avenue des Sciences – 91190 Gif-sur-Yvette, फ्रांस<br>
+            <a href="https://www.iut-orsay.universite-paris-saclay.fr/" target="_blank">ओर्से प्रौद्योगिकी संस्थान वेबसाइट</a>
+          </p>
+        </div>
+        
+        <button class="close-details" onclick="closeDetails('but', 'hi')" aria-label="विवरण बंद करें">विवरण बंद करें</button>
+      </div>
+      
+      <div class="formation-card" onclick="toggleFormationDetails('bac', 'hi')"
+           tabindex="0" role="button" aria-expanded="false" aria-controls="bac-details-hi"
+           onkeypress="if(event.key==='Enter') toggleFormationDetails('bac', 'hi')">
+        <img src="./styles/images/baccalaureat.png" alt="बुर्किना फासो में उच्च विद्यालय" class="formation-image">
+        <h3 class="formation-title">
+          उच्च विद्यालय डिप्लोमा (बैकालौरिएट) - श्रृंखला D
+          <small>वैज्ञानिक विशेषज्ञता | सम्मान के साथ | 2024</small>
+        </h3>
+      </div>
+      
+      <div id="bac-details-hi" class="formation-details" aria-labelledby="bac-details-hi-heading">
+        <h4 id="bac-details-hi-heading">बैकालौरिएट श्रृंखला D - जीवन और प्राकृतिक विज्ञान</h4>
+        <div class="formation-specialites">
+          <h5>मुख्य विषय</h5>
+          <ul>
+            <li><strong>उन्नत गणित:</strong> एनालिसिस, अलजेब्रा, ज्यामिति, प्रोबैबिलिटी</li>
+            <li><strong>भौतिकी और रसायन विज्ञान:</strong> मैकेनिक्स, इलेक्ट्रिसिटी, ऑर्गेनिक और इनऑर्गेनिक केमिस्ट्री</li>
+            <li><strong>जीव विज्ञान और प्राकृतिक विज्ञान:</strong> फिजियोलॉजी, जेनेटिक्स, इकोलॉजी</li>
+            <li><strong>दर्शनशास्त्र और भाषाएँ:</strong> फ्रेंच, इंग्लिश, फिलॉसफी</li>
+            <li><strong>इतिहास-भूगोल:</strong> विश्व इतिहास, आर्थिक और मानव भूगोल</li>
+          </ul>
+        </div>
+        
+        <div class="formation-location">
+          <h5>स्थान</h5>
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-1.5732550621032717%2C12.391510697136171%2C-1.5632987022399905%2C12.398667686238069&amp;layer=mapnik&amp;marker=12.395089216246944%2C-1.5682768821716309"
+                 title="बुर्किना फासो में स्कूल का नक्शा"></iframe>
+          <p>
+            <strong>स्थान:</strong> बुर्किना फासो<br>
+            <strong>शिक्षा प्रणाली:</strong> फ्रांसीसी मॉडल पर आधारित, स्थानीय संदर्भ के अनुकूल
+          </p>
+        </div>
+        
+        <button class="close-details" onclick="closeDetails('bac', 'hi')" aria-label="विवरण बंद करें">विवरण बंद करें</button>
+      </div>
+      
+      <!-- Timeline en hindi -->
+      <div class="timeline">
+        <h3>शैक्षिक यात्रा</h3>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">सितंबर 2024 - वर्तमान</div>
+            <h4>कंप्यूटर विज्ञान में स्नातक</h4>
+            <p>ओर्से IUT में कंप्यूटर विज्ञान में तीन साल की विश्वविद्यालय शिक्षा। कंप्यूटर विज्ञान के विभिन्न क्षेत्रों में सैद्धांतिक और व्यावहारिक कौशल का अधिग्रहण।</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">जून 2024</div>
+            <h4>उच्च विद्यालय डिप्लोमा - श्रृंखला D</h4>
+            <p>सम्मान के साथ वैज्ञानिक बैकालौरिएट प्राप्त किया। गणित, भौतिकी-रसायन और जीवन विज्ञान में ठोस प्रशिक्षण।</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <p>© 2024 Christelle Vanessa SOUBEIGA - Tous droits réservés</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,221 @@
+/* 
+ * float_101.css - Styles spécifiques pour la mise en page avec flottants
+ * À importer après index.css pour les styles spécifiques
+ */
+
+/* Styles pour les éléments flottants */
+.float-left {
+  float: left;
+  margin-right: 1.8em;
+  margin-bottom: 1.2em;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 5px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.float-right {
+  float: right;
+  margin-left: 1.8em;
+  margin-bottom: 1.2em;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 5px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.float-left:hover, .float-right:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+}
+
+/* Clear fix pour les conteneurs d'éléments flottants */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Styles de colonnes en utilisant float */
+.col-container {
+  width: 100%;
+  margin-bottom: 2.5em;
+}
+
+.col-2 {
+  float: left;
+  width: 48%;
+  margin-right: 4%;
+  padding: 1.2em;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.col-2:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.col-2:last-child {
+  margin-right: 0;
+}
+
+.col-3 {
+  float: left;
+  width: 31%;
+  margin-right: 3.5%;
+  padding: 1.2em;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.col-3:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.col-3:last-child {
+  margin-right: 0;
+}
+
+.col-4 {
+  float: left;
+  width: 22.75%;
+  margin-right: 3%;
+  padding: 1.2em;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.col-4:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.col-4:last-child {
+  margin-right: 0;
+}
+
+/* Styles pour les images dans des conteneurs float */
+.float-image-container {
+  float: left;
+  width: 30%;
+  margin-right: 2.5%;
+  margin-bottom: 2em;
+  text-align: center;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+
+.float-image-container:hover {
+  transform: translateY(-5px);
+}
+
+.float-image-container:last-child {
+  margin-right: 0;
+}
+
+.float-image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.float-image-container img:hover {
+  transform: scale(1.03);
+}
+
+.float-image-container figcaption {
+  font-size: 0.9em;
+  margin-top: 0.8em;
+  color: #666;
+}
+
+/* Conteneurs avec bordure */
+.float-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5em;
+  margin-bottom: 2em;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.float-box h3 {
+  color: #2c3e50;
+  margin-top: 0;
+  border-bottom: 2px solid #f1c40f;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+}
+
+/* Listes avec flottants */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2em 0;
+}
+
+.feature-list li {
+  padding-left: 2em;
+  position: relative;
+  margin-bottom: 1em;
+}
+
+.feature-list li::before {
+  content: '✓';
+  color: #2ecc71;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: bold;
+}
+
+/* Float box pour citation */
+.float-quote {
+  float: right;
+  width: 40%;
+  margin-left: 2em;
+  margin-bottom: 1em;
+  padding: 1.5em;
+  background-color: #f9f9f9;
+  border-left: 4px solid #f1c40f;
+  font-style: italic;
+  color: #555;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.float-quote cite {
+  display: block;
+  font-style: normal;
+  font-weight: bold;
+  margin-top: 1em;
+  text-align: right;
+  color: #333;
+}
+
+/* Media queries pour responsive design */
+@media (max-width: 768px) {
+  .col-2, .col-3, .col-4, .float-image-container {
+    float: none;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1.5em;
+  }
+  
+  .float-left, .float-right, .float-quote {
+    float: none;
+    display: block;
+    width: 100%;
+    margin: 1em 0 1.5em 0;
+  }
+}
